@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+anthropic
+scikit-learn
+pandas
+numpy
+joblib
+sentence-transformers
