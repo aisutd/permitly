@@ -30,6 +30,7 @@
     "payroll_processor":        "Payroll processing companies",
     "regulator_exempts":        "Anyone the regulator exempts by rule or order",
     "incidental_business":      "Money transmission only incidental to an unrelated main business, exempted by the regulator on application",
+    "blockchain_software":      "Software that facilitates transactions on a blockchain",
     "other":                    "Anything else; explain in the note"
   }
 }

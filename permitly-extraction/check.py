@@ -1,9 +1,9 @@
 """Step 2: check the script's answers.
 
-Run:  python check.py TX
+Run:  python check.py KY
   A. Is every quote really in the law?  (catches made-up answers)
   B. Does each answer match the answer key?  (gives accuracy)
-Writes a report to out/TX_report.md
+Writes a report to out/KY_report.md
 """
 import json
 import re

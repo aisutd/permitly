@@ -1,8 +1,8 @@
 """Step 1: read a state's law files and pull out the answers with simple rules (regex).
 
-Run:  python extract.py TX
-Reads:  raw/TX/*.txt   (line 1 = section title, rest = law text)
-Writes: out/TX.json    (same format as answer_key/TX.json)
+Run:  python extract.py KY
+Reads:  raw/KY/*.txt   (line 1 = section title, rest = law text)
+Writes: out/KY.json    (same format as answer_key/KY.json)
 """
 import json
 import re
@@ -13,19 +13,24 @@ from pathlib import Path
 STATE = sys.argv[1]
 
 MONEY = re.compile(r"\$\s?(\d[\d,]*(?:\.\d+)?)(?:\s*(million|billion))?", re.I)
-DAYS = re.compile(r"(\d+)(?:st|nd|rd|th)?\s+day", re.I)
+DAYS = re.compile(r"\(?(\d+)\)?(?:st|nd|rd|th)?\s+day", re.I)
 
 # Words that identify each exemption. Checked top to bottom; the first match wins,
 # so more specific phrases come before general ones.
 EXEMPTION_WORDS = [
     ("governmental benefits", "ebt_contractor"),
+    ("government benefits", "ebt_contractor"),
+    ("blockchain", "blockchain_software"),
     ("postal service", "postal_service"),
+    ("post office", "postal_service"),
     ("united states", "government"),
     ("governmental agency", "government"),
     ("county, city", "government"),
+    ("political subdivision", "government"),
     ("depository", "bank"),
     ("bank", "bank"),
     ("credit union", "bank"),
+    ("financial institution", "bank"),
     ("trust company", "trust_company"),
     ("attorney", "attorney_or_title"),
     ("title company", "attorney_or_title"),
@@ -33,6 +38,7 @@ EXEMPTION_WORDS = [
     ("futures commission", "futures_merchant"),
     ("broker-dealer", "broker_dealer"),
     ("employed by", "employee"),
+    ("selling goods or services", "agent_of_payee"),
     ("service provider", "service_provider_to_bank"),
     ("payroll", "payroll_processor"),
     ("agent of a payee", "agent_of_payee"),
@@ -82,7 +88,7 @@ def license_required(sections):
     if not s:
         return NOT_FOUND
     for p in pieces(s["text"]):
-        if re.search(r"may not engage", p, re.I):
+        if re.search(r"(?:may not|shall not|no person shall) engage", p, re.I):
             return answer(True, sid, re.sub(r"^.*?\(a\)\s+", "", p))
     return answer(None, sid, None, "no 'may not engage' sentence")
 
@@ -93,13 +99,19 @@ def bond(sections):
         return NOT_FOUND, NOT_FOUND, NOT_FOUND
     text = s["text"]
     tiers = len(re.findall(r"for a licensee with", text, re.I))
+    reg = r"(?:commissioner|superintendent|director|department) may (?:increase|require|set|determine)"
+    reg_piece = next((p for p in pieces(text) if re.search(reg, p, re.I)), None)
     if tiers >= 2:
         structure = "tiered"
+    elif reg_piece:
+        structure = "set_by_regulator"
     elif "greater of" in text.lower():
         structure = "formula"
     else:
         structure = "flat"
     structure_quote = next((p for p in pieces(text) if "greater of" in p.lower() or "for a licensee" in p.lower()), pieces(text)[0])
+    if structure == "set_by_regulator":
+        structure_quote = reg_piece
 
     amounts = [(p, to_dollars(m)) for p in pieces(text) for m in MONEY.finditer(p)]
     if not amounts:
@@ -143,9 +155,23 @@ def decision_days(sections):
     for sid, s in sections.items():
         for p in pieces(s["text"]):
             m = DAYS.search(p)
-            if m and re.search(r"approve or deny", p, re.I):
+            if m and re.search(r"approve,? or deny", p, re.I):
                 return answer(int(m.group(1)), sid, p)
     return NOT_FOUND
+
+
+def numbered_paragraphs(text):
+    """Find (1), (2), (3)... in order. Skips cross-references like 'subsection (4)'."""
+    starts, expected = [], 1
+    for m in re.finditer(r"\((\d+)\)\s", text):
+        if int(m.group(1)) == expected:
+            starts.append(m)
+            expected += 1
+    out = []
+    for i, m in enumerate(starts):
+        end = starts[i + 1].start() if i + 1 < len(starts) else len(text)
+        out.append((m.group(1), text[m.end():end].strip()))
+    return out
 
 
 def exemptions(sections):
@@ -153,10 +179,16 @@ def exemptions(sections):
     if not s:
         return NOT_FOUND
     found = []
-    for num, body in re.findall(r"\((\d+)\)\s+(.+?)(?=\s\(\d+\)\s|$)", s["text"]):
+    for num, body in numbered_paragraphs(s["text"]):
         tag = next((t for w, t in EXEMPTION_WORDS if w in body.lower()), "UNTAGGED")
         found.append(f"{tag}:{sid}({num})")
-    lead = re.search(r"this chapter does not apply to:", s["text"], re.I)
+    # Agents of a licensee are often exempted in the license-required section instead
+    lsid, ls = find(sections, "license required")
+    if ls:
+        for num, body in numbered_paragraphs(ls["text"]):
+            if re.search(r"agent of a licensee|authorized delegate", body, re.I):
+                found.append(f"authorized_delegate:{lsid}({num})")
+    lead = re.search(r"this (?:chapter|subtitle|article|part) does not apply to:", s["text"], re.I)
     return answer(found, sid, lead.group(0) if lead else None)
 
 

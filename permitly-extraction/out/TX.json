@@ -77,7 +77,8 @@
         "broker_dealer:152.004(13)",
         "employee:152.004(14)",
         "service_provider_to_bank:152.004(15)",
-        "regulator_exempts:152.004(16)"
+        "regulator_exempts:152.004(16)",
+        "authorized_delegate:152.101(1)"
       ],
       "section": "152.004",
       "quote": "This chapter does not apply to:",

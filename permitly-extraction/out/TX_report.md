@@ -28,10 +28,10 @@
 | application_fee_usd | correct | 10000 | 10000 |
 | renewal_fee_usd | correct | None | None |
 | decision_days | correct | 120 | 120 |
-| exemptions | WRONG | 16 | 18 |
+| exemptions | WRONG | 17 | 18 |
 
 **Field-level accuracy: 9/10 = 90%. Answers thrown out for fake quotes: 0.**
 
 ## Fields that failed
 
-- **exemptions**: 16 of 18 found; missed ['authorized_delegate:152.101(c)(1)', 'incidental_business:152.101(e)']
+- **exemptions**: 16 of 18 found; missed ['authorized_delegate:152.101(c)(1)', 'incidental_business:152.101(e)']; wrong ['authorized_delegate:152.101(1)']
