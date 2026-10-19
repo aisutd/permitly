@@ -17,17 +17,24 @@ How it works (4 small steps):
 
 import json
 import os
+import time
 from typing import Literal
 
-import anthropic
 from dotenv import load_dotenv
+from openai import OpenAI, RateLimitError
 from pydantic import BaseModel, ValidationError
 
-# Read the secret key from the .env file (so the key is never written in the code).
+# Read the settings from the .env file (so the secret key is never written in the code).
 load_dotenv()
 
-# Which LLM to use. You can change it in the .env file without touching the code.
-LLM_MODEL = os.getenv("LLM_MODEL", "claude-haiku-5-5")
+# WHICH LLM to use is decided ONLY by the .env file. No code changes needed to switch.
+# Many companies (Google Gemini, Groq, OpenRouter, OpenAI...) accept the same
+# "OpenAI-style" requests, so one piece of code works for all of them.
+#   LLM_API_KEY   = your secret key
+#   LLM_BASE_URL  = the company's address (see .env.example)
+#   LLM_MODEL     = the model name
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai/")
+LLM_MODEL = os.getenv("LLM_MODEL", "")
 
 
 # ---------------------------------------------------------------------------
@@ -66,25 +73,37 @@ Rules:
 
 # ---------------------------------------------------------------------------
 # STEP 2: One small function that talks to the LLM.
-# If you ever switch to another LLM company, this is the ONLY function to change.
+# If you ever switch to another LLM company, change the .env file, not this function.
+# Free plans have limits (requests per minute). If we hit the limit, we wait and retry.
 # ---------------------------------------------------------------------------
 def _call_llm(description: str) -> str:
-    api_key = os.getenv("ANTHROPIC_API_KEY")
+    api_key = os.getenv("LLM_API_KEY")
     if not api_key:
         raise RuntimeError(
-            "ANTHROPIC_API_KEY is missing. Copy .env.example to .env and paste your key."
+            "LLM_API_KEY is missing. Copy .env.example to .env and paste your key."
         )
+    if not LLM_MODEL:
+        raise RuntimeError("LLM_MODEL is missing in the .env file.")
 
-    client = anthropic.Anthropic(api_key=api_key)
-    response = client.messages.create(
-        model=LLM_MODEL,
-        max_tokens=500,
-        temperature=0,  # 0 = most consistent answers
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": f"Business description:\n{description}"}],
-    )
-    # The answer comes in "blocks". We join all the text blocks together.
-    return "".join(block.text for block in response.content if block.type == "text")
+    client = OpenAI(api_key=api_key, base_url=LLM_BASE_URL)
+
+    for attempt in range(3):
+        try:
+            response = client.chat.completions.create(
+                model=LLM_MODEL,
+                temperature=0,  # 0 = most consistent answers
+                messages=[
+                    {"role": "system", "content": SYSTEM_PROMPT},
+                    {"role": "user", "content": f"Business description:\n{description}"},
+                ],
+            )
+            return response.choices[0].message.content or ""
+        except RateLimitError:
+            if attempt == 2:
+                raise RuntimeError(
+                    "Hit the free-plan rate limit. Wait a minute and try again."
+                )
+            time.sleep(20)  # wait, then try again
 
 
 # ---------------------------------------------------------------------------

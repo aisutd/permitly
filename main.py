@@ -11,10 +11,14 @@ Endpoints:
   POST /profile  -> LLM profile only             (works BEFORE training)
   POST /risk     -> risk + 3 similar examples    (needs the trained model)
   POST /assess   -> everything together
+
+Input is ONE text field: {"description": "..."}  (plain text, 10-5000 characters).
+Strange input (gibberish, other languages) returns general_risk "Unknown" or a
+non-empty "warnings" list with needs_review = true.
 """
 
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from assess import assess_business
 from profile_builder import build_profile
@@ -26,6 +30,16 @@ app = FastAPI(title="Permitly Risk API")
 # The shape of what the user sends us.
 class DescriptionIn(BaseModel):
     description: str = Field(min_length=10, max_length=5000)
+
+    @field_validator("description")
+    @classmethod
+    def must_contain_words(cls, value: str) -> str:
+        value = value.strip()
+        if len(value) < 10:
+            raise ValueError("Description is too short (at least 10 characters).")
+        if sum(ch.isalpha() for ch in value) < 5:
+            raise ValueError("Description must contain real words, not only numbers or symbols.")
+        return value
 
 
 @app.get("/health")

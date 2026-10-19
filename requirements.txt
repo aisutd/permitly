@@ -2,9 +2,9 @@ fastapi
 uvicorn
 pydantic
 python-dotenv
-anthropic
+openai
 scikit-learn
 pandas
 numpy
 joblib
-sentence-transformers
+ 
