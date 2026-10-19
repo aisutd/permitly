@@ -1,0 +1,30 @@
+Exemptions
+Sec. 152.004.  EXEMPTIONS.  This chapter does not apply to:
+(1)  an operator of a payment system to the extent that the operator provides processing, clearing, or settlement services, between or among persons exempted by this section or money services licensees, in connection with wire transfers, credit card transactions, debit card transactions, stored-value transactions, automated clearing house transfers, or similar funds transfers;
+(2)  a person appointed as an agent of a payee to collect and process a payment from a payor to the payee for goods or services, other than money transmission services, provided to the payor by the payee, provided that:
+(A)  there exists a written agreement between the payee and the agent directing the agent to collect and process payments from payors on the payee's behalf;
+(B)  the payee holds the agent out to the public as accepting payments for goods or services on the payee's behalf; and
+(C)  payment for the goods and services is treated as received by the payee on receipt by the agent, the payor's obligation is extinguished, and there is no risk of loss to the payor if the agent fails to remit the funds to the payee;
+(3)  a person who acts as an intermediary by processing payments between an entity that has directly incurred an outstanding money transmission obligation to a sender, and the sender's designated recipient, provided that the entity that has incurred the outstanding money transmission obligation:
+(A)  is licensed or exempt from the licensing requirements of this chapter;
+(B)  provides a receipt, electronic record, or other written confirmation to the sender identifying the entity as the provider of money transmission in the transaction; and
+(C)  bears sole responsibility to satisfy the outstanding money transmission obligation to the sender, including the obligation to make the sender whole in connection with a failure to transmit the funds to the sender's designated recipient;
+(4)  the United States or a department, agency, or instrumentality of the United States, or an agent of a department, agency, or instrumentality of the United States;
+(5)  money transmission services by the United States Postal Service or by an agent of the United States Postal Service;
+(6)  a state, county, city, or any other governmental agency or governmental subdivision or instrumentality of a state, or its agent;
+(7)  a federally insured depository financial institution, bank holding company, office of an international banking corporation, foreign bank that establishes a federal branch under the International Banking Act of 1978 (12 U.S.C. Section 3102), corporation organized under the Bank Service Company Act (12 U.S.C. Sections 1861-1867), or corporation organized under the Edge Act (12 U.S.C. Sections 611-633);
+(8)  a trust company, as defined by Section 187.001, that is organized under the laws of this state;
+(9)  an attorney or title company that in connection with a real property transaction receives and disburses domestic currency or issues an escrow or trust fund check only on behalf of a party to the transaction;
+(10)  an electronic funds transfer of governmental benefits for a federal, state, county, or governmental agency by a contractor on behalf of the United States or a department, agency, or instrumentality of the United States, or on behalf of a state or governmental subdivision, agency, or instrumentality of a state;
+(11)  a board of trade designated as a contract market under the federal Commodity Exchange Act (7 U.S.C. Sections 1-25), or a person who, in the ordinary course of business, provides clearance and settlement services for a board of trade to the extent of its operation as or for a board of trade;
+(12)  a registered futures commission merchant under the federal commodities laws to the extent of its operation as such a merchant;
+(13)  a person registered as a securities broker-dealer under federal or state securities laws to the extent of the person's operation as a broker-dealer;
+(14)  an individual employed by a money services licensee, authorized delegate, or person exempted from the licensing requirements of this chapter when acting within the scope of employment and under the supervision of the licensee, authorized delegate, or exempted person as an employee and not as an independent contractor;
+(15)  a person expressly appointed as a third-party service provider to or agent of an entity exempt under Subdivision (7), solely to the extent that:
+(A)  the service provider or agent engages in money transmission services on behalf of and under a written agreement with the exempt entity that provides the specific functions that the service provider or agent is to perform; and
+(B)  the exempt entity assumes all risk of loss and all legal responsibility for satisfying the outstanding money transmission obligations owed to purchasers and holders of the outstanding money transmission obligations on receipt of the purchaser's or holder's money or monetary value by the service provider or agent; and
+(16)  a person exempt by a regulation or order of the commissioner finding that:
+(A)  the exemption is in the public interest; and
+(B)  the regulation of the person is not necessary for the purposes of this chapter.
+
+Added by Acts 2023, 88th Leg., R.S., Ch. 277 (S.B. 895), Sec. 1.01, eff. September 1, 2023.

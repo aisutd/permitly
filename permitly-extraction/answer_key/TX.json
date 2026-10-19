@@ -1,0 +1,89 @@
+{
+  "record_info": {
+    "state": "TX",
+    "license_type": "money_transmission",
+    "statute": "Tex. Fin. Code ch. 152; 7 Tex. Admin. Code 33.27",
+    "source_date": "2026-10-18"
+  },
+  "fields": {
+    "license_required": {
+      "value": true,
+      "section": "152.101",
+      "quote": "A person may not engage in the business of money transmission or advertise, solicit, or hold itself out as engaging in the business of money transmission unless the person is licensed under this chapter.",
+      "note": ""
+    },
+    "bond_structure": {
+      "value": "tiered",
+      "section": "152.352",
+      "quote": "for a licensee with a tangible net worth in an amount not greater than 10 percent of the licensee's total assets, the greater of:",
+      "note": "Two tiers based on net worth as a share of total assets"
+    },
+    "bond_min_usd": {
+      "value": 100000,
+      "section": "152.352",
+      "quote": "for a licensee with a tangible net worth in an amount greater than 10 percent of the licensee's total assets, $100,000",
+      "note": "Every licensee posts at least $100,000"
+    },
+    "bond_max_usd": {
+      "value": 500000,
+      "section": "152.352",
+      "quote": "up to a maximum amount of $500,000",
+      "note": "Cap applies to the liability-based amount; licensees may choose to exceed it (152.352(d))"
+    },
+    "net_worth_structure": {
+      "value": "tiered",
+      "section": "152.351",
+      "quote": "A money transmission licensee under this chapter shall maintain at all times a tangible net worth in an amount not less than:",
+      "note": "Three tiers by total assets"
+    },
+    "net_worth_min_usd": {
+      "value": 100000,
+      "section": "152.351",
+      "quote": "the greater of: (A) $100,000; or (B) 3 percent of the value of the licensee's total assets",
+      "note": "Greater of $100,000 or 3% of total assets, for assets up to $100 million"
+    },
+    "application_fee_usd": {
+      "value": 10000,
+      "section": "7TAC33.27",
+      "quote": "You must pay a $10,000 application fee to obtain a new money transmission license",
+      "note": "Set by agency rule, not the statute. Nonrefundable once accepted for processing"
+    },
+    "renewal_fee_usd": {
+      "value": null,
+      "section": "7TAC33.27",
+      "quote": "You must pay your annual assessment.",
+      "note": "Annual assessment depends on Texas transaction volume; the table is published as an image and cannot be extracted from text"
+    },
+    "decision_days": {
+      "value": 120,
+      "section": "152.106",
+      "quote": "The commissioner shall approve or deny the application not later than the 120th day after the date the application is determined to be complete under Subsection (a).",
+      "note": "Counted from the date the application is complete; approved automatically if the deadline passes; can be extended for good cause"
+    },
+    "exemptions": {
+        "value": [
+            "payment_system:152.004(1)",
+            "agent_of_payee:152.004(2)",
+            "payment_intermediary:152.004(3)",
+            "government:152.004(4)",
+            "postal_service:152.004(5)",
+            "government:152.004(6)",
+            "bank:152.004(7)",
+            "trust_company:152.004(8)",
+            "attorney_or_title:152.004(9)",
+            "ebt_contractor:152.004(10)",
+            "board_of_trade:152.004(11)",
+            "futures_merchant:152.004(12)",
+            "broker_dealer:152.004(13)",
+            "employee:152.004(14)",
+            "service_provider_to_bank:152.004(15)",
+            "regulator_exempts:152.004(16)",
+            "authorized_delegate:152.101(c)(1)",
+            "incidental_business:152.101(e)"
+        ],
+        "section": "152.004",
+        "quote": "This chapter does not apply to:",
+        "note": "16 exemptions in 152.004, plus authorized delegates (152.101(c)(1)) and the commissioner's incidental-business exemption (152.101(e))"
+        }
+    }
+}
