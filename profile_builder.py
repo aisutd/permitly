@@ -24,12 +24,10 @@ from dotenv import load_dotenv
 from openai import OpenAI, RateLimitError
 from pydantic import BaseModel, ValidationError
 
-# Read the settings from the .env file (so the secret key is never written in the code).
+# Read the settings from the .env file 
 load_dotenv()
 
-# WHICH LLM to use is decided ONLY by the .env file. No code changes needed to switch.
-# Many companies (Google Gemini, Groq, OpenRouter, OpenAI...) accept the same
-# "OpenAI-style" requests, so one piece of code works for all of them.
+
 #   LLM_API_KEY   = your secret key
 #   LLM_BASE_URL  = the company's address (see .env.example)
 #   LLM_MODEL     = the model name
@@ -39,7 +37,7 @@ LLM_MODEL = os.getenv("LLM_MODEL", "")
 
 # ---------------------------------------------------------------------------
 # STEP 1A: Describe the shape of the answer we want.
-# pydantic will REJECT any answer that does not match this shape.
+# pydantic will reject any answer that does not match this shape.
 # ---------------------------------------------------------------------------
 class BusinessProfile(BaseModel):
     activities: list[str]                        # short phrases, e.g. ["international money transfer"]
