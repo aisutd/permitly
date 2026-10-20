@@ -28,10 +28,11 @@
 | application_fee_usd | correct | 375 | 375 |
 | renewal_fee_usd | correct | 750 | 750 |
 | decision_days | correct | 90 | 90 |
-| exemptions | correct | 3 | 3 |
+| exemptions | WRONG | 4 | 3 |
 
-**Field-level accuracy: 9/10 = 90%. Answers thrown out for fake quotes: 0.**
+**Field-level accuracy: 8/10 = 80%. Answers thrown out for fake quotes: 0.**
 
 ## Fields that failed
 
 - **net_worth_structure**: tiered (sec 560.209) vs formula (sec 560.209)
+- **exemptions**: 2 of 3 found; missed ['government:560.104(3)']; wrong ['other:560.104(3)', 'trust_company:560.104(1)']

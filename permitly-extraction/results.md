@@ -11,7 +11,7 @@ Each row is one stage of the project in order. Scores are field-level accuracy a
 | 3. Regex fixed | Added rules for Kentucky wording | 9/10 | 10/10 (no longer unseen) | — | — | 0 |
 | 4. Second new state | Ran fixed regex on Florida, no changes | 9/10 | 10/10 | **1/10 (unseen)** | 10% | 1 |
 | 5. LLM v1 | Replaced regex with an LLM (gpt-oss-120b on Groq), same quote check | 5/10 | **7/10 (unseen)** | **9/10 (unseen)** | **80%** | 7 |
-| 6. LLM v2 | Stricter quote rules, one retry for inexact quotes, tag definitions | TBD | TBD | TBD | Test on CA, NY, IL, WA | TBD |
+| 6. LLM v2 | Stricter quote rules, one retry for missing or inexact quotes, tag definitions | 7/10 | 9/10 (no longer unseen) | 8/10 (no longer unseen) | Test on CA, NY, IL, WA | 0 |
 
 **Headline:** on states the method had not seen, accuracy rose from **35% with regex** (7/20, KY + FL first runs) to **80% with the LLM** (16/20).
 

@@ -1,63 +1,61 @@
 {
-  "fields": {
-    "license_required": {
-      "value": true,
-      "section": "286.11-005",
-      "quote": "On or after October 1, 2006, no person shall engage in the business of money transmission in this state without a license"
-    },
-    "bond_structure": {
-      "value": "set_by_regulator",
-      "section": "286.11-013",
-      "quote": "in the amount of at least five hundred thousand dollars ($500,000). The commissioner may increase the amount ... to a maximum of five million dollars ($5,000,000)"
-    },
-    "bond_min_usd": {
-      "value": 500000,
-      "section": "286.11-013",
-      "quote": "in the amount of at least five hundred thousand dollars ($500,000)"
-    },
-    "bond_max_usd": {
-      "value": 5000000,
-      "section": "286.11-013",
-      "quote": "to a maximum of five million dollars ($5,000,000)"
-    },
-    "net_worth_structure": {
-      "value": "flat",
-      "section": "286.11-011",
-      "quote": "Each licensee ... shall at all times have a net worth of not less than five hundred thousand dollars ($500,000)"
-    },
-    "net_worth_min_usd": {
-      "value": 500000,
-      "section": "286.11-011",
-      "quote": "net worth of not less than five hundred thousand dollars ($500,000)"
-    },
-    "application_fee_usd": {
-      "value": 500,
-      "section": "286.11-017",
-      "quote": "Each application shall be accompanied by a nonrefundable application fee in the amount of five hundred dollars ($500)"
-    },
-    "renewal_fee_usd": {
-      "value": 500,
-      "section": "286.11-021",
-      "quote": "shall pay an annual renewal fee of five hundred dollars ($500)"
-    },
-    "decision_days": {
-      "value": 120,
-      "section": "286.11-019",
-      "quote": "The commissioner shall approve, or deny in writing, every completed application for a license within one hundred twenty (120) days"
-    },
-    "exemptions": {
-      "value": [
-        "government:286.11-007(1)",
-        "postal_service:286.11-007(2)",
-        "government:286.11-007(3)",
-        "bank:286.11-007(4)",
-        "other:286.11-007(5)",
-        "other:286.11-007(6)",
-        "government:286.11-007(7)",
-        "blockchain_software:286.11-007(8)"
-      ],
-      "section": "286.11-007",
-      "quote": "This subtitle does not apply to:"
-    }
+  "license_required": {
+    "value": true,
+    "section": "286.11-005",
+    "quote": "no person shall engage in the business of money transmission in this state without a license"
+  },
+  "bond_structure": {
+    "value": "set_by_regulator",
+    "section": "286.11-013",
+    "quote": "in the amount of at least five hundred thousand dollars ($500,000)"
+  },
+  "bond_min_usd": {
+    "value": 500000,
+    "section": "286.11-013",
+    "quote": "in the amount of at least five hundred thousand dollars ($500,000)"
+  },
+  "bond_max_usd": {
+    "value": 5000000,
+    "section": "286.11-013",
+    "quote": "to a maximum of five million dollars ($5,000,000)"
+  },
+  "net_worth_structure": {
+    "value": "flat",
+    "section": "286.11-011",
+    "quote": "net worth of not less than five hundred thousand dollars ($500,000)"
+  },
+  "net_worth_min_usd": {
+    "value": 500000,
+    "section": "286.11-011",
+    "quote": "net worth of not less than five hundred thousand dollars ($500,000)"
+  },
+  "application_fee_usd": {
+    "value": 500,
+    "section": "286.11-017",
+    "quote": "nonrefundable application fee in the amount of five hundred dollars ($500)"
+  },
+  "renewal_fee_usd": {
+    "value": 500,
+    "section": "286.11-021",
+    "quote": "annual renewal fee of five hundred dollars ($500)"
+  },
+  "decision_days": {
+    "value": 120,
+    "section": "286.11-019",
+    "quote": "within one hundred twenty (120) days from the date a complete application is submitted"
+  },
+  "exemptions": {
+    "value": [
+      "government:286.11-007(1)",
+      "postal_service:286.11-007(2)",
+      "government:286.11-007(3)",
+      "bank:286.11-007(4)",
+      "authorized_delegate:286.11-007(5)",
+      "agent_of_payee:286.11-007(6)",
+      "ebt_contractor:286.11-007(7)",
+      "blockchain_software:286.11-007(8)"
+    ],
+    "section": "286.11-007",
+    "quote": "This subtitle does not apply to:"
   }
 }

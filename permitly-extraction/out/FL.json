@@ -2,7 +2,7 @@
   "record_info": {
     "state": "FL",
     "license_type": "money_transmission",
-    "made_by": "llm_extract.py (openai/gpt-oss-120b)",
+    "made_by": "llm_extract.py v2 (openai/gpt-oss-120b)",
     "date": "2026-10-19"
   },
   "fields": {
@@ -63,8 +63,9 @@
     "exemptions": {
       "value": [
         "bank:560.104(1)",
+        "trust_company:560.104(1)",
         "government:560.104(2)",
-        "government:560.104(3)"
+        "other:560.104(3)"
       ],
       "section": "560.104",
       "quote": "The following entities are exempt from the provisions of this chapter:",
