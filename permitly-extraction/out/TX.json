@@ -2,63 +2,63 @@
   "record_info": {
     "state": "TX",
     "license_type": "money_transmission",
-    "made_by": "extract.py",
+    "made_by": "llm_extract.py (openai/gpt-oss-120b)",
     "date": "2026-10-19"
   },
   "fields": {
     "license_required": {
       "value": true,
       "section": "152.101",
-      "quote": "A person may not engage in the business of money transmission or advertise, solicit, or hold itself out as engaging in the business of money transmission unless the person is licensed under this chapter.",
-      "note": ""
+      "quote": "A person may not engage in the business of money transmission unless the person is licensed under this chapter.",
+      "note": "llm"
     },
     "bond_structure": {
-      "value": "tiered",
+      "value": "formula",
       "section": "152.352",
-      "quote": "(1)  for a licensee with a tangible net worth in an amount not greater than 10 percent of the licensee's total assets, the greater of:",
-      "note": ""
+      "quote": "the greater of: $100,000; or 100 percent of the licensee's average daily money transmission liability up to a maximum amount of $500,000",
+      "note": "llm"
     },
     "bond_min_usd": {
       "value": 100000,
       "section": "152.352",
-      "quote": "(A)  $100,000;",
-      "note": ""
+      "quote": "the greater of: $100,000; or 100 percent of the licensee's average daily money transmission liability",
+      "note": "llm"
     },
     "bond_max_usd": {
       "value": 500000,
       "section": "152.352",
-      "quote": "maximum amount of $500,000",
-      "note": ""
+      "quote": "up to a maximum amount of $500,000",
+      "note": "llm"
     },
     "net_worth_structure": {
       "value": "tiered",
       "section": "152.351",
-      "quote": "Sec.",
-      "note": ""
+      "quote": "for a licensee with total assets the greater of: $100,000; or 3 percent of the value of the licensee's total assets",
+      "note": "llm"
     },
     "net_worth_min_usd": {
       "value": 100000,
       "section": "152.351",
-      "quote": "(A)  $100,000;",
-      "note": ""
+      "quote": "the greater of: $100,000; or 3 percent of the value of the licensee's total assets",
+      "note": "llm"
     },
     "application_fee_usd": {
       "value": 10000,
       "section": "7TAC33.27",
-      "quote": "(d) What fees must I pay to obtain a new license? (1) You must pay a $10,000 application fee to obtain a new money transmission license or a $5,000 application fee to obtain a currency exchange license.",
-      "note": ""
+      "quote": "You must pay a $10,000 application fee to obtain a new money transmission license",
+      "note": "llm"
     },
     "renewal_fee_usd": {
       "value": null,
       "section": null,
       "quote": null,
-      "note": "not found"
+      "note": "llm: not found"
     },
     "decision_days": {
       "value": 120,
       "section": "152.106",
-      "quote": "(b)  The commissioner shall approve or deny the application not later than the 120th day after the date the application is determined to be complete under Subsection (a).",
-      "note": ""
+      "quote": "approve or deny the application not later than the 120th day after the date the application is determined to be complete",
+      "note": "llm"
     },
     "exemptions": {
       "value": [
@@ -78,11 +78,12 @@
         "employee:152.004(14)",
         "service_provider_to_bank:152.004(15)",
         "regulator_exempts:152.004(16)",
-        "authorized_delegate:152.101(1)"
+        "authorized_delegate:152.101(c)(1)",
+        "incidental_business:152.101(e)"
       ],
       "section": "152.004",
       "quote": "This chapter does not apply to:",
-      "note": ""
+      "note": "llm"
     }
   }
 }

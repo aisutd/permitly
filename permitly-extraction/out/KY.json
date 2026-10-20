@@ -2,63 +2,63 @@
   "record_info": {
     "state": "KY",
     "license_type": "money_transmission",
-    "made_by": "extract.py",
+    "made_by": "llm_extract.py (openai/gpt-oss-120b)",
     "date": "2026-10-19"
   },
   "fields": {
     "license_required": {
       "value": true,
       "section": "286.11-005",
-      "quote": "(1) On or after October 1, 2006, no person shall engage in the business of money transmission in this state without a license, or without being an agent of a licensee, as provided in this subtitle.",
-      "note": ""
+      "quote": "On or after October 1, 2006, no person shall engage in the business of money transmission in this state without a license",
+      "note": "llm"
     },
     "bond_structure": {
       "value": "set_by_regulator",
       "section": "286.11-013",
-      "quote": "The commissioner may increase the amount of the surety bond, or other similar security, to a maximum of five million dollars ($5,000,000), upon the basis of the financial condition of an applicant, as evidenced by net worth, transaction volume, or other relevant criteria that the commissioner may establish by order or rule.",
-      "note": ""
+      "quote": "in the amount of at least five hundred thousand dollars ($500,000). The commissioner may increase the amount ... to a maximum of five million dollars ($5,000,000)",
+      "note": "llm"
     },
     "bond_min_usd": {
       "value": 500000,
       "section": "286.11-013",
-      "quote": "(1) Each application shall be accompanied by a surety bond or other similar security acceptable to the commissioner, in the amount of at least five hundred thousand dollars ($500,000).",
-      "note": ""
+      "quote": "in the amount of at least five hundred thousand dollars ($500,000)",
+      "note": "llm"
     },
     "bond_max_usd": {
       "value": 5000000,
       "section": "286.11-013",
-      "quote": "maximum of five million dollars ($5,000,000",
-      "note": ""
+      "quote": "to a maximum of five million dollars ($5,000,000)",
+      "note": "llm"
     },
     "net_worth_structure": {
       "value": "flat",
       "section": "286.11-011",
-      "quote": "Each licensee under this subtitle shall at all times have a net worth of not less than five hundred thousand dollars ($500,000), calculated in accordance with generally accepted accounting principles.",
-      "note": ""
+      "quote": "Each licensee ... shall at all times have a net worth of not less than five hundred thousand dollars ($500,000)",
+      "note": "llm"
     },
     "net_worth_min_usd": {
       "value": 500000,
       "section": "286.11-011",
-      "quote": "Each licensee under this subtitle shall at all times have a net worth of not less than five hundred thousand dollars ($500,000), calculated in accordance with generally accepted accounting principles.",
-      "note": ""
+      "quote": "net worth of not less than five hundred thousand dollars ($500,000)",
+      "note": "llm"
     },
     "application_fee_usd": {
       "value": 500,
       "section": "286.11-017",
-      "quote": "Each application shall be accompanied by a nonrefundable application fee in the amount of five hundred dollars ($500) and a nonrefundable license fee of five hundred dollars ($500) if application is made on or before March 31, or the next business day if March 31 falls on a weekend or holiday.",
-      "note": ""
+      "quote": "Each application shall be accompanied by a nonrefundable application fee in the amount of five hundred dollars ($500)",
+      "note": "llm"
     },
     "renewal_fee_usd": {
       "value": 500,
       "section": "286.11-021",
-      "quote": "(1) A licensee under this subtitle shall pay an annual renewal fee of five hundred dollars ($500) no later than September 20 of each year.",
-      "note": ""
+      "quote": "shall pay an annual renewal fee of five hundred dollars ($500)",
+      "note": "llm"
     },
     "decision_days": {
       "value": 120,
       "section": "286.11-019",
-      "quote": "(2) The commissioner shall approve, or deny in writing, every completed application for a license within one hundred twenty (120) days from the date a complete application is submitted, which period may be extended for good cause by the commissioner.",
-      "note": ""
+      "quote": "The commissioner shall approve, or deny in writing, every completed application for a license within one hundred twenty (120) days",
+      "note": "llm"
     },
     "exemptions": {
       "value": [
@@ -66,15 +66,14 @@
         "postal_service:286.11-007(2)",
         "government:286.11-007(3)",
         "bank:286.11-007(4)",
-        "service_provider_to_bank:286.11-007(5)",
-        "agent_of_payee:286.11-007(6)",
-        "ebt_contractor:286.11-007(7)",
-        "blockchain_software:286.11-007(8)",
-        "authorized_delegate:286.11-005(1)"
+        "other:286.11-007(5)",
+        "other:286.11-007(6)",
+        "government:286.11-007(7)",
+        "blockchain_software:286.11-007(8)"
       ],
       "section": "286.11-007",
       "quote": "This subtitle does not apply to:",
-      "note": ""
+      "note": "llm"
     }
   }
 }
