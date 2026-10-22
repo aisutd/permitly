@@ -1,0 +1,8 @@
+name,state,source_type,url,enabled
+Pennsylvania Money Transmission Law,Pennsylvania,Statute,https://www.legis.state.pa.us/WU01/LI/LI/US/HTM/1965/0/0249..HTM,true
+Kentucky,Kentucky,Statute,,false
+New York Banking Law Article 13-B,New York,Statute,https://legislation.nysenate.gov/pdf/laws/BNKA13-B?full=true,true
+California,California,Statue,,false
+Texas,Texas,Statue,,false
+Texas Finance Code,Texas,Statue,https://statutes.capitol.texas.gov/Docs/FI/htm/FI.152.htm,true
+NY Banking Laws,New York,Statue,,false
