@@ -3,3 +3,12 @@ requests>=2.31
 chromadb>=0.5
 sentence-transformers>=3.0
 pypdf>=4.0
+fastapi
+uvicorn
+pydantic
+python-dotenv
+openai
+scikit-learn
+pandas
+numpy
+joblib
