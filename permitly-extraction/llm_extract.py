@@ -21,6 +21,8 @@ import urllib.request
 from datetime import date
 from pathlib import Path
 
+from quote_utils import number_in_quote
+
 STATE = sys.argv[1]
 MODEL = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
 KEY = os.environ.get("GROQ_API_KEY")
@@ -77,7 +79,8 @@ PROMPT = f"""Fill these 10 fields for this state's money transmitter license.
 For each field return {{"value": ..., "section": "<id from the === SECTION === header>", "quote": "<exact continuous words from that section>"}}.
 
 license_required: true if the law requires a license to engage in money transmission.
-bond_structure: one of "flat" (one fixed amount for everyone), "formula" (one rule for everyone that computes the amount, such as the greater of X or Y percent, or a base plus an amount per location), "tiered" (the law sorts licensees into categories, such as by assets or net worth, and gives each category its own amount or rule, even if each rule is a formula), "set_by_regulator" (the regulator or a rule sets the amount, possibly within limits).bond_min_usd: the lowest bond amount stated, as a number.
+bond_structure: one of "flat" (one fixed amount for everyone), "formula" (one rule for everyone that computes the amount, such as the greater of X or Y percent, or a base plus an amount per location), "tiered" (the law sorts licensees into categories, such as by assets or net worth, and gives each category its own amount or rule, even if each rule is a formula), "set_by_regulator" (the regulator or a rule sets the amount, possibly within limits).
+bond_min_usd: the lowest bond amount stated, as a number.
 bond_max_usd: the highest bond amount or cap stated, as a number, or null.
 net_worth_structure: same choices as bond_structure.
 net_worth_min_usd: the minimum net worth, as a number.
@@ -107,11 +110,14 @@ def as_field(x):
     return {"value": x, "section": None, "quote": None}
 
 
-def quote_ok(f):
+def quote_ok(f, name=None):
     if f.get("value") is None:
         return True
     q, sec = f.get("quote"), f.get("section")
-    return bool(q) and sec in SECTIONS and norm(q) in norm(SECTIONS[sec])
+    if not (bool(q) and sec in SECTIONS and norm(q) in norm(SECTIONS[sec])):
+        return False
+    # a number field must have its number written in the quote (same rule as check.py)
+    return name not in NUMBER_FIELDS or number_in_quote(to_number(f.get("value")), q)
 
 
 def call_llm(messages):
@@ -157,7 +163,7 @@ messages = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": P
 first = call_llm(messages)
 got = {k: as_field(v) for k, v in first.get("fields", first).items()}
 
-first_bad = [n for n in FIELDS if n not in got or not quote_ok(got[n])]
+first_bad = [n for n in FIELDS if n not in got or not quote_ok(got[n], n)]
 fixed = []
 if first_bad:
     print(f"{len(first_bad)} field(s) missing or not quoted word for word: {', '.join(first_bad)}")
@@ -169,7 +175,7 @@ if first_bad:
     messages += [
         {"role": "assistant", "content": json.dumps(first)},
         {"role": "user", "content":
-            "These fields are missing, or their quotes do not appear word for word in the cited section:\n"
+            "These fields are missing, or their quotes do not appear word for word in the cited section (or the number is not written in the quote):\n"
             + lines +
             "\nFor these fields only, answer again with a quote copied as ONE continuous stretch "
             "of the section text: no '...', no skipped or changed words, keep markers like (A). "
@@ -180,10 +186,10 @@ if first_bad:
     for n in first_bad:
         if n in redo:
             got[n] = redo[n]
-            if quote_ok(got[n]):
+            if quote_ok(got[n], n):
                 fixed.append(n)
 
-still_bad = [n for n in FIELDS if n not in got or not quote_ok(got[n])]
+still_bad = [n for n in FIELDS if n not in got or not quote_ok(got[n], n)]
 
 fields = {}
 for name in FIELDS:
