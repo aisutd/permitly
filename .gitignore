@@ -1,5 +1,8 @@
 .env
+.venv/
+.venv-old/
+__pycache__/
+*.py[cod]
+.chroma/
 models/
 reports/
-__pycache__/
-.venv/
