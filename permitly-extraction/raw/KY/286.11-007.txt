@@ -1,0 +1,39 @@
+286.11-007 Exemptions.
+This subtitle does not apply to:
+(1) The United States or any department, agency, or instrumentality thereof;
+(2) The United States Post Office or a contractor acting on behalf of the United States
+Post Office;
+(3) A state or any agency, department, or political subdivision of a state;
+(4) A financial institution or its subsidiaries, affiliates, and service corporations, or any
+office of an international banking corporation, branch of a foreign bank, or
+corporation organized pursuant to the Bank Service Corporation Act, 12 U.S.C.
+secs. 181 to 1867, or a corporation organized under the Edge Act, 12 U.S.C. secs.
+611 to 633;
+(5) A service provider that:
+(a) Pursuant to a written agreement, acts on behalf of an entity exempt from
+licensure as set forth in subsection (4) of this section; and
+(b) Allows the state or federal regulators with regulatory jurisdiction over the
+exempt entity to examine and inspect the service provider's applicable
+records, books, and transactions;
+(6) A service provider that receives money or monetary value on behalf of an entity
+selling goods or services other than money transmission services if:
+(a) The entity, upon receipt of funds by the service provider, immediately either:
+1. Provides the purchased goods or services to the purchaser; or
+2. Credits the purchaser for the full amount of money or monetary value
+received by the service provider, which credit is not revocable by the
+entity, and evidences this credit in writing; and
+(b) The entity is obligated to provide the purchased goods or services to the
+purchaser regardless of whether or not the service provider transmits the
+money or monetary value to the entity;
+(7) The provision of electronic transfer of government benefits for any federal, state, or
+county governmental agency as defined in Federal Reserve Board Regulation E, by
+a contractor for and on behalf of the United States or any department, agency, or
+instrumentality thereof, or any state or any political subdivisions thereof; or
+(8) (a) Any individual or business that:
+1. Develops or deploys software on a blockchain protocol, even if the
+software effectuates the exchange of one digital asset for another digital
+asset;
+2. Exchanges digital assets for other digital assets; or
+3. Operates a node or series of nodes on a blockchain protocol.
+(b) As used in this subsection, "blockchain protocol," "digital asset," and "node"
+have the same meaning as in KRS 369.130.

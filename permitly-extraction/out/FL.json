@@ -1,0 +1,75 @@
+{
+  "record_info": {
+    "state": "FL",
+    "license_type": "money_transmission",
+    "made_by": "llm_extract.py v2 (openai/gpt-oss-120b)",
+    "date": "2026-10-19"
+  },
+  "fields": {
+    "license_required": {
+      "value": true,
+      "section": "560.125",
+      "quote": "A person may not engage in the business of a money services business or deferred presentment provider in this state unless the person is licensed or exempted from licensure under this chapter.",
+      "note": "llm"
+    },
+    "bond_structure": {
+      "value": "set_by_regulator",
+      "section": "560.209",
+      "quote": "The corporate surety bond shall be in an amount as specified by rule, but may not be less than $50,000 or exceed $2 million.",
+      "note": "llm"
+    },
+    "bond_min_usd": {
+      "value": 50000,
+      "section": "560.209",
+      "quote": "The corporate surety bond shall be in an amount as specified by rule, but may not be less than $50,000 or exceed $2 million.",
+      "note": "llm"
+    },
+    "bond_max_usd": {
+      "value": 2000000,
+      "section": "560.209",
+      "quote": "The corporate surety bond shall be in an amount as specified by rule, but may not be less than $50,000 or exceed $2 million.",
+      "note": "llm"
+    },
+    "net_worth_structure": {
+      "value": "tiered",
+      "section": "560.209",
+      "quote": "A licensee must have a net worth of at least $100,000. A licensee operating in more than one location must have an additional net worth of $10,000 per location in this state, up to a maximum of $2 million.",
+      "note": "llm"
+    },
+    "net_worth_min_usd": {
+      "value": 100000,
+      "section": "560.209",
+      "quote": "A licensee must have a net worth of at least $100,000. A licensee operating in more than one location must have an additional net worth of $10,000 per location in this state, up to a maximum of $2 million.",
+      "note": "llm"
+    },
+    "application_fee_usd": {
+      "value": 375,
+      "section": "560.143",
+      "quote": "Part II..........$375.",
+      "note": "llm"
+    },
+    "renewal_fee_usd": {
+      "value": 750,
+      "section": "560.143",
+      "quote": "Part II..........$750.",
+      "note": "llm"
+    },
+    "decision_days": {
+      "value": 90,
+      "section": "120.60",
+      "quote": "An application for a license must be approved or denied within 90 days after receipt of a completed application unless a shorter period of time for agency action is provided by law.",
+      "note": "llm"
+    },
+    "exemptions": {
+      "value": [
+        "bank:560.104(1)",
+        "trust_company:560.104(1)",
+        "government:560.104(2)",
+        "other:560.104(3)"
+      ],
+      "section": "560.104",
+      "quote": "The following entities are exempt from the provisions of this chapter:",
+      "note": "llm"
+    }
+  }
+}

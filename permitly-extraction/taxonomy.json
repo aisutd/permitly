@@ -1,0 +1,36 @@
+{
+  "_about": "Shared labels for the whole team. The classifier, extraction, and map all use these exact words. Do not rename a label once teammates use it; add new ones only after agreeing as a team.",
+  "business_types": {
+    "p2p_transfer":         "Moving money between users of the same app",
+    "remittance":           "Sending money abroad to another person",
+    "stored_value":         "Holding customer balances or selling prepaid value",
+    "bill_payment":         "Paying a customer's bills to companies",
+    "payroll_processing":   "Receiving employer money and paying employees",
+    "marketplace_payments": "Collecting from buyers and paying sellers",
+    "virtual_currency":     "Holding or sending crypto or stablecoins",
+    "currency_exchange":    "Exchanging one country's currency for another",
+    "software_only":        "Technology that never touches customer money"
+  },
+  "exemptions": {
+    "bank":                     "Banks, credit unions, savings associations",
+    "trust_company":            "Chartered trust companies",
+    "government":               "Federal, state, or local government and their agents",
+    "postal_service":           "U.S. Postal Service and its agents",
+    "agent_of_payee":           "Collecting payment on behalf of the seller or biller",
+    "payment_system":           "Processing, clearing, or settlement operators",
+    "payment_intermediary":     "Processing payments for a company that owes the transfer",
+    "authorized_delegate":      "Agent acting on behalf of a licensee",
+    "employee":                 "Employees acting for a licensee or exempt company",
+    "service_provider_to_bank": "Service providers or agents of an exempt bank",
+    "broker_dealer":            "Registered securities broker-dealers",
+    "futures_merchant":         "Registered futures commission merchants",
+    "board_of_trade":           "Designated boards of trade and their clearing providers",
+    "attorney_or_title":        "Attorneys or title companies in real estate deals",
+    "ebt_contractor":           "Contractors for government benefit cards",
+    "payroll_processor":        "Payroll processing companies",
+    "regulator_exempts":        "Anyone the regulator exempts by rule or order",
+    "incidental_business":      "Money transmission only incidental to an unrelated main business, exempted by the regulator on application",
+    "blockchain_software":      "Software that facilitates transactions on a blockchain",
+    "other":                    "Anything else; explain in the note"
+  }
+}
