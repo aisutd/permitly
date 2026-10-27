@@ -169,10 +169,15 @@ def fetch_text(url): # Downloads a page, checks for statute text, and tries the 
     raise RuntimeError('Could not fetch usable statute text. ' + '; '.join(failures))
 
 
-# Texas: Sec. 152.001; Pennsylvania: Section 1. or Section 1.1.
+# Recognizes statute section headings for Texas (Sec. 152.001),
+# Pennsylvania (Section 1. or Section 1.1.),
+# and Delaware (§ 2304.) to split statutes into sections.
 SECTION_HEADING = re.compile(
-    r"(?m)^[^\S\r\n]*(?:Sec\.[^\S\r\n]*\d+(?:\.\d+)*[A-Za-z]?\.?|"
-    r"Section[^\S\r\n]+\d+(?:\.\d+)*\.)(?=[^\S\r\n]|$|[-—])"
+    r"(?m)^[^\S\r\n]*(?:"
+    r"Sec\.[^\S\r\n]*\d+(?:\.\d+)*[A-Za-z]?\.?|"
+    r"Section[^\S\r\n]+\d+(?:\.\d+)*\.|"
+    r"§[^\S\r\n]*(?:\r?\n[^\S\r\n]*)?\d+(?:\.\d+)*[A-Za-z]?\."
+    r")(?=[^\S\r\n]|$|[-—])"
 )
 
 PA_FIRST_SECTION = re.compile(
@@ -312,7 +317,11 @@ def retrieval_terms(text):
                'licensed': 'license', 'licensee': 'license', 'licensees': 'license',
                'licensing': 'license', 'licenses': 'license',
                'needs': 'require', 'need': 'require', 'required': 'require',
-               'requirements': 'require', 'requirement': 'require'}
+               'requirements': 'require', 'requirement': 'require',
+               'exemption': 'exempt',
+                'exemptions': 'exempt',
+                'exempted': 'exempt',
+                'exempting': 'exempt',}
     return {aliases.get(word, word[:-1] if word.endswith('s') and len(word) > 3 else word)
             for word in re.findall(r'[a-z]+', text.lower()) if word not in stop}
 
@@ -344,7 +353,7 @@ def retrieve(collection, question, state, model, k=4):
     if not records:
         return [], 'No matching statute passages were found. Add an official statute source for this state.'
     embedding = model.encode([question], normalize_embeddings=True).tolist()
-    results = collection.query(query_embeddings=embedding, n_results=min(len(records), max(20, k)),
+    results = collection.query(query_embeddings=embedding, n_results=min(len(records), max(100, k)),
                                where=where, include=['documents', 'metadatas', 'distances'])
     docs = results['documents'][0]
     metas = results['metadatas'][0]
