@@ -126,14 +126,25 @@ def fold_scores(name: str, estimator, X, y, cv) -> None:
     print(f"  High recall : {rec.mean():.2f} (+/- {rec.std():.2f})   per fold: {[round(float(v), 2) for v in rec]}\n")
 
 
+# Missing a High-risk business is the worst mistake, so errors on "High" cost double,
+# "Medium" 1.5x, "Low" 1x. Settings were chosen by repeated cross-validation on the
+# v3 data (see the explanation that came with this file).
+CLASS_WEIGHT = {"High": 2.0, "Medium": 1.5, "Low": 1.0}
+
+
 def new_logistic_regression() -> LogisticRegression:
-    # class_weight="balanced" = pay extra attention to the smaller groups.
-    return LogisticRegression(max_iter=1000, class_weight="balanced")
+    # C=10 = trust the training data more (less smoothing than the default C=1).
+    return LogisticRegression(max_iter=1000, C=10, class_weight=CLASS_WEIGHT)
+
+
+def new_vectorizer() -> TfidfVectorizer:
+    # sublinear_tf=True: a word repeated 5 times does not count 5x more than a word seen once.
+    return TfidfVectorizer(ngram_range=(1, 2), sublinear_tf=True)
 
 
 def new_tfidf_pipeline():
     # TF-IDF = count words (and 2-word pairs), then Logistic Regression decides.
-    return make_pipeline(TfidfVectorizer(ngram_range=(1, 2)), new_logistic_regression())
+    return make_pipeline(new_vectorizer(), new_logistic_regression())
 
 
 def main(data_path: str, model_type: str, compare: bool) -> None:
@@ -208,7 +219,7 @@ def main(data_path: str, model_type: str, compare: bool) -> None:
     # -----------------------------------------------------------------------
     extra = {}
     if model_type == "tfidf":
-        vectorizer = TfidfVectorizer(ngram_range=(1, 2))
+        vectorizer = new_vectorizer()
         X_final = vectorizer.fit_transform(texts)
         extra["vectorizer"] = vectorizer  # saved so the API converts text the same way
     else:
