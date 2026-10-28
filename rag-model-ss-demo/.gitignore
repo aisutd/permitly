@@ -1,0 +1,4 @@
+.venv/
+.chroma/
+.chroma-backup-*/
+__pycache__/

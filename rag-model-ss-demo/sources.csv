@@ -1,0 +1,8 @@
+name,state,source_type,url,enabled
+Pennsylvania,Pennsylvania,Statue,,false
+Kentucky,Kentucky,Statute,,false
+New York,New York,Statue,,false
+California,California,Statue,,false
+Texas,Texas,Statue,,false
+Texas Finance Code,Texas,Statue,https://statutes.capitol.texas.gov/Docs/FI/htm/FI.152.htm,true
+NY Banking Laws,New York,Statue,,false
