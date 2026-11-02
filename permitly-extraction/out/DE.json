@@ -2,8 +2,8 @@
   "record_info": {
     "state": "DE",
     "license_type": "money_transmission",
-    "made_by": "llm_extract.py v2 (openai/gpt-oss-120b)",
-    "date": "2026-11-01"
+    "made_by": "llm_latek.py v3 (openai/gpt-oss-120b)",
+    "date": "2026-11-02"
   },
   "fields": {
     "license_required": {
@@ -21,65 +21,65 @@
     "bond_min_usd": {
       "value": 100000,
       "section": "2309",
-      "quote": "The Commissioner shall determine the principal sum of the bond, which must be between $100,000 and $500,000.",
+      "quote": "which must be between $100,000 and $500,000.",
       "note": "llm"
     },
     "bond_max_usd": {
       "value": 500000,
       "section": "2309",
-      "quote": "The Commissioner shall determine the principal sum of the bond, which must be between $100,000 and $500,000.",
+      "quote": "which must be between $100,000 and $500,000.",
       "note": "llm"
     },
     "net_worth_structure": {
-      "value": "formula",
+      "value": "tiered",
       "section": "2308",
-      "quote": "tangible net worth of the greater of $100,000 or 3% of total assets for the first $100 million, 2% of additional assets for $100 million to $1 billion, and 0.5% of additional assets for over $1 billion.",
+      "quote": "the greater of $100,000 or 3% of total assets for the first $100 million, 2% of additional assets for $100 million to $1 billion, and 0.5% of additional assets for over $1 billion.",
       "note": "llm"
     },
     "net_worth_min_usd": {
       "value": 100000,
       "section": "2308",
-      "quote": "tangible net worth of the greater of $100,000 or 3% of total assets for the first $100 million, 2% of additional assets for $100 million to $1 billion, and 0.5% of additional assets for over $1 billion.",
+      "quote": "the greater of $100,000 or 3% of total assets",
       "note": "llm"
     },
     "application_fee_usd": {
       "value": 172.5,
       "section": "2306",
       "quote": "At the time of application, the applicant shall pay to the Commissioner a nonrefundable investigation fee of $172.50.",
-      "note": "llm"
+      "note": "llm (fixed on retry)"
     },
     "renewal_fee_usd": {
       "value": 230,
       "section": "2310",
-      "quote": "A license under this chapter must be renewed annually. The annual renewal fee is $230 plus $4.60 for each location in this State of the offices of the applicant\u2019s authorized delegates, in excess of 1,",
-      "note": "llm"
+      "quote": "The annual renewal fee is $230 plus $4.60 for each location in this State of the offices of the applicant\u2019s authorized delegates, in excess of 1, subject to the following:",
+      "note": "llm (fixed on retry)"
     },
     "decision_days": {
-      "value": 30,
-      "section": "2307",
-      "quote": "If an application is denied, the Commissioner shall issue a formal written notice of denial within 30 days of the decision.",
-      "note": "llm"
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "llm (fixed on retry)"
     },
     "exemptions": {
       "value": [
-        "payment_system:2305(1)",
-        "agent_of_payee:2305(2)",
-        "payment_intermediary:2305(3)",
-        "government:2305(4)",
-        "postal_service:2305(5)",
-        "government:2305(6)",
-        "bank:2305(7)",
-        "ebt_contractor:2305(8)",
-        "board_of_trade:2305(9)",
-        "futures_merchant:2305(10)",
-        "broker_dealer:2305(11)",
-        "employee:2305(12)",
-        "service_provider_to_bank:2305(13)",
-        "regulator_exempts:2305(14)"
+        "payment_system:2305(a)(1)",
+        "agent_of_payee:2305(a)(2)",
+        "payment_intermediary:2305(a)(3)",
+        "government:2305(a)(4)",
+        "postal_service:2305(a)(5)",
+        "government:2305(a)(6)",
+        "bank:2305(a)(7)",
+        "ebt_contractor:2305(a)(8)",
+        "board_of_trade:2305(a)(9)",
+        "futures_merchant:2305(a)(10)",
+        "broker_dealer:2305(a)(11)",
+        "employee:2305(a)(12)",
+        "service_provider_to_bank:2305(a)(13)",
+        "regulator_exempts:2305(a)(14)"
       ],
       "section": "2305",
       "quote": "This chapter does not apply to any of the following:",
-      "note": "llm"
+      "note": "llm (fixed on retry)"
     }
   }
 }

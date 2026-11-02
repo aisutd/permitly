@@ -1,12 +1,21 @@
-"""Step 1b (v2): ask an LLM on Groq to fill the same 10 fields as extract.py.
+"""LLM extractor, v3 (current). Older versions: llm_latek_v1.py, llm_latek_v2.py.
 
-v2 changes:
+Asks an LLM on Groq to fill the same 10 fields as latek.py (regex).
+
+v2 changes (from v1):
 - Stricter quote rules: one continuous stretch, no "...", keep markers like (A).
-- Checks its own quotes (and missing fields); asks the model once to fix them.
+- Checks its own quotes and missing fields; asks the model once to fix them.
 - Short definitions for each exemption tag.
 - Waits and retries automatically on Groq's free-tier rate limit.
 
-Run:   python llm_extract.py FL
+v3 changes (from v2, based on the Delaware blind test):
+- decision_days counts only an approve-or-deny deadline, not notice deadlines.
+- Exemption citations use the full subsection path, e.g. 2305(a)(1).
+- Clearer "tiered" vs "formula" definition with examples.
+- Fixed two prompt lines that had merged into one.
+- Dollar amounts keep cents (e.g. 172.50) instead of being cut to whole dollars.
+
+Run:   python llm_latek.py FL
 Needs: export GROQ_API_KEY="your key"  and  export GROQ_MODEL="openai/gpt-oss-120b"
 Writes out/FL.json (graded by check.py) and out/FL_llm_log.json (quote stats).
 """
@@ -21,6 +30,7 @@ import urllib.request
 from datetime import date
 from pathlib import Path
 
+VERSION = "v3"
 STATE = sys.argv[1]
 MODEL = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
 KEY = os.environ.get("GROQ_API_KEY")
@@ -77,14 +87,15 @@ PROMPT = f"""Fill these 10 fields for this state's money transmitter license.
 For each field return {{"value": ..., "section": "<id from the === SECTION === header>", "quote": "<exact continuous words from that section>"}}.
 
 license_required: true if the law requires a license to engage in money transmission.
-bond_structure: one of "flat" (one fixed amount for everyone), "formula" (one rule for everyone that computes the amount, such as the greater of X or Y percent, or a base plus an amount per location), "tiered" (the law sorts licensees into categories, such as by assets or net worth, and gives each category its own amount or rule, even if each rule is a formula), "set_by_regulator" (the regulator or a rule sets the amount, possibly within limits).bond_min_usd: the lowest bond amount stated, as a number.
+bond_structure: one of "flat" (one fixed amount for everyone), "formula" (one rule for everyone that computes the amount, such as the greater of X or Y percent, or a base plus an amount per location), "tiered" (the law sorts licensees into categories or brackets, such as by assets or net worth, and gives each its own amount or rule, even if each rule is a formula), "set_by_regulator" (the regulator or a rule sets the amount, possibly within limits).
+bond_min_usd: the lowest bond amount stated, as a number.
 bond_max_usd: the highest bond amount or cap stated, as a number, or null.
-net_worth_structure: same choices as bond_structure.
+net_worth_structure: same choices as bond_structure. Use "tiered" when the law sets different amounts or percentages for different brackets or categories of licensee (for example 3% of the first $100 million of assets and 2% above that). Use "formula" when one rule applies to everyone (for example $100,000 plus $10,000 per location).
 net_worth_min_usd: the minimum net worth, as a number.
 application_fee_usd: the application fee for the main money transmitter license, as a number. If several fees are listed, choose the one for the main license, not branches, locations, or caps.
 renewal_fee_usd: the renewal fee for the main money transmitter license, as a number, or null.
-decision_days: the number of days the regulator has to approve or deny a complete application, or null.
-exemptions: value is a list of strings "tag:SECTION(PARAGRAPH)", for example "bank:100.10(4)" or "authorized_delegate:100.20(c)(1)", one for every paragraph that exempts a type of person or business, in any section. Return it in the same {{"value": [...], "section": ..., "quote": ...}} form; the quote is the sentence that introduces the main list of exemptions. Never leave this field out.
+decision_days: the number of days the regulator has to approve or deny a complete application, or null. Count only a deadline for the approve-or-deny decision itself. Do not use deadlines for sending notices, completeness reviews, hearings, appeals, or payments. If the law sets no approve-or-deny deadline, return null.
+exemptions: value is a list of strings "tag:SECTION(PATH)", for example "bank:100.10(4)" or "authorized_delegate:100.20(c)(1)", one for every paragraph that exempts a type of person or business, in any section. Write PATH as the full chain of subsection markers exactly as printed: if paragraph (1) sits under subsection (a), write 100.10(a)(1), not 100.10(1). Return it in the same {{"value": [...], "section": ..., "quote": ...}} form; the quote is the sentence that introduces the main list of exemptions. Never leave this field out.
 
 Exemption tags (use only these):
 {TAG_LINES}
@@ -137,17 +148,19 @@ def call_llm(messages):
 
 
 def to_number(v):
+    """Turn "$172.50" or "172.5" into a number. Keeps cents; whole amounts stay whole."""
     if v is None or isinstance(v, (int, float)):
         return v
     try:
-        return int(float(str(v).replace("$", "").replace(",", "").strip()))
+        n = float(str(v).replace("$", "").replace(",", "").strip())
     except ValueError:
         return None
+    return int(n) if n.is_integer() else n
 
 
 # Keep the regex results before overwriting out/STATE.json
 out = Path(f"out/{STATE}.json")
-if out.exists() and json.loads(out.read_text())["record_info"].get("made_by") == "extract.py":
+if out.exists() and json.loads(out.read_text())["record_info"].get("made_by") in ("extract.py", "latek.py"):
     shutil.copy(out, f"out/{STATE}_regex.json")
     rep = Path(f"out/{STATE}_report.md")
     if rep.exists():
@@ -201,16 +214,16 @@ for name in FIELDS:
     fields[name] = {"value": value, "section": f.get("section"), "quote": f.get("quote"), "note": note}
 
 record = {"record_info": {"state": STATE, "license_type": "money_transmission",
-                          "made_by": f"llm_extract.py v2 ({MODEL})", "date": str(date.today())},
+                          "made_by": f"llm_latek.py {VERSION} ({MODEL})", "date": str(date.today())},
           "fields": fields}
 Path("out").mkdir(exist_ok=True)
 out.write_text(json.dumps(record, indent=2), encoding="utf-8")
 Path(f"out/{STATE}_llm_raw.json").write_text(json.dumps(got, indent=2), encoding="utf-8")
 Path(f"out/{STATE}_llm_log.json").write_text(json.dumps(
-    {"model": MODEL, "version": "v2", "first_pass_bad_or_missing": first_bad,
+    {"model": MODEL, "version": VERSION, "first_pass_bad_or_missing": first_bad,
      "fixed_on_retry": fixed, "still_bad": still_bad}, indent=2), encoding="utf-8")
 
-print(f"\nSaved out/{STATE}.json (LLM v2: {MODEL})")
+print(f"\nSaved out/{STATE}.json (LLM {VERSION}: {MODEL})")
 print(f"Fields: {len(first_bad)} missing or inexact on first try, {len(fixed)} fixed on retry, {len(still_bad)} still bad\n")
 for name, f in fields.items():
     shown = f"{len(f['value'])} items" if isinstance(f["value"], list) else f["value"]
