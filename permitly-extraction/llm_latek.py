@@ -179,13 +179,15 @@ if first_bad:
         f"- {n}: MISSING from your answer" if n not in got
         else f"- {n}: {got[n].get('quote')!r} (section {got[n].get('section')})"
         for n in first_bad)
-    messages += [
-        {"role": "assistant", "content": json.dumps(first)},
-        {"role": "user", "content":
-            "These fields are missing, or their quotes do not appear word for word in the cited section:\n"
-            + lines +
-            "\nFor these fields only, answer again with a quote copied as ONE continuous stretch "
-            "of the section text: no '...', no skipped or changed words, keep markers like (A). "
+        # Fresh, smaller retry: the same prompt plus a short note, without resending the first answer
+    # (resending it made Texas too large for Groq's free tier).
+    messages = [
+        {"role": "system", "content": SYSTEM},
+        {"role": "user", "content": PROMPT +
+            "\n\nIMPORTANT: in an earlier attempt, these fields were missing or their quotes did not "
+            "appear word for word in the cited section:\n" + lines +
+            "\nAnswer ONLY these fields, with a quote copied as ONE continuous stretch of the section "
+            "text: no '...', no skipped or changed words, keep markers like (A). "
             "If no such stretch supports the value, set value and quote to null. "
             'Return {"fields": {...only these fields...}}'}]
     second = call_llm(messages)
