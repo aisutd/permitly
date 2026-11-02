@@ -1,0 +1,86 @@
+{
+  "record_info": {
+    "state": "DE",
+    "license_type": "money_transmission",
+    "statute": "5 Del. C. ch. 23, subch. II (SB 18, 85 Del. Laws c. 338)",
+    "source_date": "2026-10-28"
+  },
+  "fields": {
+    "license_required": {
+      "value": true,
+      "section": "2304",
+      "quote": "A person may not engage in the business of money transmission",
+      "note": ""
+    },
+    "bond_structure": {
+      "value": "set_by_regulator",
+      "section": "2309",
+      "quote": "The Commissioner shall determine the principal sum of the bond",
+      "note": "Commissioner sets the amount between $100,000 and $500,000"
+    },
+    "bond_min_usd": {
+      "value": 100000,
+      "section": "2309",
+      "quote": "which must be between $100,000 and $500,000",
+      "note": ""
+    },
+    "bond_max_usd": {
+      "value": 500000,
+      "section": "2309",
+      "quote": "which must be between $100,000 and $500,000",
+      "note": ""
+    },
+    "net_worth_structure": {
+      "value": "tiered",
+      "section": "2308",
+      "quote": "a tangible net worth of the greater of $100,000 or 3% of total assets for the first $100 million",
+      "note": "Percentage changes by asset bracket (3%, 2%, 0.5%); same structure as Texas 152.351"
+    },
+    "net_worth_min_usd": {
+      "value": 100000,
+      "section": "2308",
+      "quote": "a tangible net worth of the greater of $100,000 or 3% of total assets for the first $100 million",
+      "note": ""
+    },
+    "application_fee_usd": {
+      "value": 172.5,
+      "section": "2306",
+      "quote": "a nonrefundable investigation fee of $172.50",
+      "note": "Paid at application; a separate $230 annual license fee is due on approval (2307(g))"
+    },
+    "renewal_fee_usd": {
+      "value": 230,
+      "section": "2310",
+      "quote": "The annual renewal fee is $230",
+      "note": "Plus $4.60 per authorized delegate location after the first"
+    },
+    "decision_days": {
+      "value": null,
+      "section": "2307",
+      "quote": "the Commissioner shall promptly notify the applicant in writing of the date on which the application is deemed complete",
+      "note": "No deadline to approve or deny. The only day count is a 30-day deadline to send written notice after a denial."
+    },
+    "exemptions": {
+      "value": [
+        "payment_system:2305(a)(1)",
+        "agent_of_payee:2305(a)(2)",
+        "payment_intermediary:2305(a)(3)",
+        "government:2305(a)(4)",
+        "postal_service:2305(a)(5)",
+        "government:2305(a)(6)",
+        "bank:2305(a)(7)",
+        "ebt_contractor:2305(a)(8)",
+        "board_of_trade:2305(a)(9)",
+        "futures_merchant:2305(a)(10)",
+        "broker_dealer:2305(a)(11)",
+        "employee:2305(a)(12)",
+        "service_provider_to_bank:2305(a)(13)",
+        "regulator_exempts:2305(a)(14)",
+        "authorized_delegate:2304(b)(1)"
+      ],
+      "section": "2305",
+      "quote": "This chapter does not apply to any of the following:",
+      "note": "14 exemptions in 2305(a), plus authorized delegates in 2304(b)(1)"
+    }
+  }
+}

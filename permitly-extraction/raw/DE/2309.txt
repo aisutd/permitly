@@ -1,0 +1,18 @@
+2309 Surety bonds.
+(a) A licensee shall file with the Commissioner an original corporate surety bond in a form satisfactory to the Commissioner. The bond must be issued by a corporation authorized to transact business in this State. The Commissioner shall determine the principal sum of the bond, which must be between $100,000 and $500,000. In determining the bond amount, the Commissioner must consider all of the following:
+(1) The amount of the licensee’s average daily money transmission liability in this State.
+(2) The licensee’s tangible net worth.
+(3) The licensee’s total assets.
+(4) Any other factor the Commissioner deems relevant and appropriate.
+(b) A licensee that maintains a bond in the maximum amount provided for in subsection (a) of this section is not required to calculate average daily money transmission liability.
+(c) The Commissioner may not accept a bond unless it meets all of the following requirements:
+(1) The aggregate value of the bond must be equal to or greater than the amount provided in subsection (a) of this section.
+(2) The term of the bond must be commensurate with the license period or continuous.
+(3) The expiration date of the bond may not be earlier than midnight of the date on which the license expires.
+(4) The bond runs to this State for the benefit of the Office of the State Bank Commissioner and for the benefit of any consumer injured by a wrongful act, omission, default, fraud, or misrepresentation by a licensee in the course of its activity.
+(d) Compensation under the bond is for actual losses and is not payable for claims made by a business creditor, third-party service provider, agent, or person employed by the licensee.
+(e) An insurer shall pay a surety claim to the Office of the State Bank Commissioner within 90 days after receipt of the claim. A claim paid after 90 days is subject to daily interest at the legal rate under § 2301 of Title 6. The aggregate liability of the surety on the bond, excluding interest, may not exceed the amount of the bond.
+(f) If a licensee changes its surety company or the bond is amended, the licensee shall immediately provide the Commissioner with the amended original copy of the surety bond. Cancellation of an existing bond by a surety is ineffective unless written notice of its intention to cancel is filed with the Commissioner at least 30 days before the date upon which cancellation takes effect.
+(g) The Commissioner may require potential claimants to provide documentation and affirmations as the Commissioner determines are necessary. If the Commissioner determines that multiple consumers have been injured by a licensee, the Commissioner may publish a notice to identify all relevant claims.
+(h) When a surety company receives a claim against the bond of a licensee, the surety company must immediately notify the Commissioner. The surety company may not pay any claim unless and until it receives notice to do so from the Commissioner.
+(i) The Commissioner shall submit a claim to the insurer within 2 years of the date of the cancellation or date of termination of the surety bond.

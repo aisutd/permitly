@@ -1,4 +1,4 @@
-"""Step 1b: ask an Groq to fill the same 10 fields as extract.py.
+"""Step 1b: ask Groq LLM to fill the same 10 fields as extract.py.
 
 Run:   python llm_extract.py FL
 Needs: export GROQ_API_KEY="your key"   (in the terminal first)
@@ -19,7 +19,6 @@ MODEL = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
 KEY = os.environ.get("GROQ_API_KEY")
 if not KEY:
     sys.exit('No key found. First run:  export GROQ_API_KEY="your key"')
-
 FIELDS = ["license_required", "bond_structure", "bond_min_usd", "bond_max_usd",
           "net_worth_structure", "net_worth_min_usd", "application_fee_usd",
           "renewal_fee_usd", "decision_days", "exemptions"]
