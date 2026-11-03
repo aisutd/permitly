@@ -1,0 +1,74 @@
+{
+  "record_info": {
+    "state": "CA",
+    "license_type": "money_transmission",
+    "made_by": "extract.py",
+    "date": "2026-11-03"
+  },
+  "fields": {
+    "license_required": {
+      "value": true,
+      "section": "2030",
+      "quote": "A person shall not engage in the business of money transmission in this state, or advertise, solicit, or hold itself out as providing money transmission in this state, unless the person is licensed or exempt from licensure under this division or is an agent of a person licensed or exempt from licensure under this division.",
+      "note": ""
+    },
+    "bond_structure": {
+      "value": "flat",
+      "section": "2037",
+      "quote": "(a) As security, each licensee shall deposit and thereafter maintain on deposit with the Treasurer cash in an amount not less than, or securities having a market value not less than, such amount as the commissioner may find and order from time to time as necessary to secure the faithful performance of the obligations of the licensee with respect to money transmission in California.",
+      "note": ""
+    },
+    "bond_min_usd": {
+      "value": 250000,
+      "section": "2037",
+      "quote": "(e) A licensee that engages in receiving money for transmission shall maintain securities on deposit or a bond of a surety company in an amount greater than the average daily outstanding obligations for money received for transmission in California, provided that such amount shall not be less than two hundred fifty thousand dollars ($250,000) nor more than seven million dollars ($7,000,000).",
+      "note": ""
+    },
+    "bond_max_usd": {
+      "value": null,
+      "section": "2037",
+      "quote": null,
+      "note": "no cap found"
+    },
+    "net_worth_structure": {
+      "value": "formula",
+      "section": "2040",
+      "quote": "Subject to subdivision (b), a licensee shall maintain at all times a tangible net worth of the greater of one hundred thousand dollars ($100,000) or 3 percent of total assets for the first one hundred million dollars ($100,000,000), 2 percent of additional assets for one hundred million dollars ($100,000,000) to one billion dollars ($1,000,000,000), and one-half of 1 percent of additional assets for over one billion dollars ($1,000,000,000).",
+      "note": ""
+    },
+    "net_worth_min_usd": {
+      "value": 100000,
+      "section": "2040",
+      "quote": "(a) Subject to subdivision (b), a licensee shall maintain at all times a tangible net worth of the greater of one hundred thousand dollars ($100,000) or 3 percent of total assets for the first one hundred million dollars ($100,000,000), 2 percent of additional assets for one hundred million dollars ($100,000,000) to one billion dollars ($1,000,000,000), and one-half of 1 percent of additional assets for over one billion dollars ($1,000,000,000).",
+      "note": ""
+    },
+    "application_fee_usd": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "renewal_fee_usd": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "decision_days": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "exemptions": {
+      "value": [
+        "UNTAGGED:2010(1)",
+        "UNTAGGED:2010(2)",
+        "futures_merchant:2010(3)"
+      ],
+      "section": "2010",
+      "quote": null,
+      "note": ""
+    }
+  }
+}

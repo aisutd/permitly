@@ -14,6 +14,7 @@ Each row is one stage of the project in order. Scores are field-level accuracy a
 | 6. LLM v2 | Stricter quote rules, one retry for missing or inexact quotes, tag definitions | 7/10 | 9/10 | 8/10 | — | 0 |
 | 7. Third new state | Ran regex and LLM v2 on Delaware, no changes (law replaced July 2026, SB 18) | — | — | — | **Regex 4/10, LLM 7/10 (unseen)** | Regex 1, LLM 0 |
 | 8. LLM v3 | Approve-or-deny-only deadline rule, full citation paths, clearer tiered/formula definition, keeps cents, smaller retry | 9/10 | 9/10 | 10/10 | 9/10 | 0 (4 fixed on retry in DE) |
+| 9. Fourth new state | Ran regex and LLM v3 on California, no changes | — | — | — | CA: Regex 4/10, LLM v3 8/10 (unseen) | Regex 1, LLM 0 (3 fixed on retry) |
 
 **Headline (unseen states only, first run on each):**
 - Regex: **11/30 = 37%** (KY 6, FL 1, DE 4)
@@ -28,6 +29,7 @@ Each row is one stage of the project in order. Scores are field-level accuracy a
 5. **Delaware (unseen):** LLM v2 scored 7/10. It answered "30 days" by citing a real sentence about a denial-notice deadline, not an approval deadline: a real quote backing the wrong answer, caught only by the answer key. It tagged all 14 exemption paragraphs correctly but wrote 2305(1) instead of 2305(a)(1), which strict scoring counts as wrong.
 6. **LLM v3:** fixed decision days, citation format, and the tiered vs formula labels. The retry was also made smaller after Texas exceeded Groq's free-tier request size.
 7. **Remaining misses are all exemptions:** long lists (Texas, 18 items, left out entirely) or exemptions split across the license and exemptions sections (Kentucky and Delaware delegate exemptions).
+8. **California (unseen, v3):** 8/10, zero rejected quotes. The v3 fixes held on new law (no invented deadline, correct tiered net worth, correct citations). Misses: bond structure "tiered" vs key "formula" (California sets different bond rules by activity, so the model's answer is defensible and flagged for key review), and the agent exemption in the license section, now missed in KY, DE, and CA.
 
 ## Fields that fail most
 1. Exemptions: long lists and exemptions spread across sections (still failing in v3)

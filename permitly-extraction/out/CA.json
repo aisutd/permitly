@@ -1,0 +1,85 @@
+{
+  "record_info": {
+    "state": "CA",
+    "license_type": "money_transmission",
+    "made_by": "llm_latek.py v3 (openai/gpt-oss-120b)",
+    "date": "2026-11-03"
+  },
+  "fields": {
+    "license_required": {
+      "value": true,
+      "section": "2030",
+      "quote": "A person shall not engage in the business of money transmission in this state, or advertise, solicit, or hold itself out as providing money transmission in this state, unless the person is licensed or exempt",
+      "note": "llm"
+    },
+    "bond_structure": {
+      "value": "tiered",
+      "section": "2037",
+      "quote": "A licensee that engages in receiving money for transmission shall maintain securities on deposit or a bond of a surety company in an amount greater than the average daily outstanding obligations for money received for transmission in California, provided that such amount shall not be less than two hundred fifty thousand dollars ($250,000) nor more than seven million dollars ($7,000,000)",
+      "note": "llm"
+    },
+    "bond_min_usd": {
+      "value": 250000,
+      "section": "2037",
+      "quote": "shall not be less than two hundred fifty thousand dollars ($250,000)",
+      "note": "llm"
+    },
+    "bond_max_usd": {
+      "value": 7000000,
+      "section": "2037",
+      "quote": "nor more than seven million dollars ($7,000,000)",
+      "note": "llm"
+    },
+    "net_worth_structure": {
+      "value": "tiered",
+      "section": "2040",
+      "quote": "the greater of one hundred thousand dollars ($100,000) or 3 percent of total assets for the first one hundred million dollars ($100,000,000)",
+      "note": "llm"
+    },
+    "net_worth_min_usd": {
+      "value": 100000,
+      "section": "2040",
+      "quote": "the greater of one hundred thousand dollars ($100,000) or 3 percent of total assets for the first one hundred million dollars ($100,000,000)",
+      "note": "llm"
+    },
+    "application_fee_usd": {
+      "value": 5000,
+      "section": "2032",
+      "quote": "pay to the commissioner a nonrefundable fee of five thousand dollars ($5,000)",
+      "note": "llm"
+    },
+    "renewal_fee_usd": {
+      "value": 2500,
+      "section": "2038",
+      "quote": "c) A licensee shall pay annually on or before July 1, a licensee fee of two thousand five hundred dollars ($2,500).",
+      "note": "llm (fixed on retry)"
+    },
+    "decision_days": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "llm (fixed on retry)"
+    },
+    "exemptions": {
+      "value": [
+        "government:2010(a)",
+        "postal_service:2010(b)",
+        "government:2010(c)",
+        "bank:2010(d)",
+        "trust_company:2010(d)",
+        "ebt_contractor:2010(e)",
+        "board_of_trade:2010(f)",
+        "payment_system:2010(g)",
+        "payment_system:2010(h)",
+        "broker_dealer:2010(i)",
+        "payroll_processor:2010(j)",
+        "agent_of_payee:2010(l)",
+        "payment_intermediary:2010(m)",
+        "futures_merchant:2010(n)"
+      ],
+      "section": "2010",
+      "quote": "This division does not apply to any of the following:",
+      "note": "llm (fixed on retry)"
+    }
+  }
+}

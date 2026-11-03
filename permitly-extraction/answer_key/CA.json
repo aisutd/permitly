@@ -1,0 +1,85 @@
+{
+  "record_info": {
+    "state": "CA",
+    "license_type": "money_transmission",
+    "statute": "Cal. Fin. Code Div. 1.2 (Money Transmission Act), secs. 2010, 2030-2040",
+    "source_date": "2026-11-03"
+  },
+  "fields": {
+    "license_required": {
+      "value": true,
+      "section": "2030",
+      "quote": "A person shall not engage in the business of money transmission in this state",
+      "note": ""
+    },
+    "bond_structure": {
+      "value": "formula",
+      "section": "2037",
+      "quote": "in an amount greater than the average daily outstanding obligations for money received for transmission in California",
+      "note": "For receiving money for transmission (2037(e)): more than average daily outstanding obligations, floor $250,000, cap $7,000,000. Sellers of payment instruments or stored value have a separate, cumulative $500,000 to $2,000,000 requirement (2037(d))."
+    },
+    "bond_min_usd": {
+      "value": 250000,
+      "section": "2037",
+      "quote": "shall not be less than two hundred fifty thousand dollars ($250,000)",
+      "note": ""
+    },
+    "bond_max_usd": {
+      "value": 7000000,
+      "section": "2037",
+      "quote": "nor more than seven million dollars ($7,000,000)",
+      "note": ""
+    },
+    "net_worth_structure": {
+      "value": "tiered",
+      "section": "2040",
+      "quote": "a tangible net worth of the greater of one hundred thousand dollars ($100,000)",
+      "note": "3% / 2% / 0.5% by asset bracket, same structure as Texas and Delaware; commissioner may exempt (2040(b))"
+    },
+    "net_worth_min_usd": {
+      "value": 100000,
+      "section": "2040",
+      "quote": "a tangible net worth of the greater of one hundred thousand dollars ($100,000)",
+      "note": ""
+    },
+    "application_fee_usd": {
+      "value": 5000,
+      "section": "2032",
+      "quote": "a nonrefundable fee of five thousand dollars ($5,000)",
+      "note": "Also restated in 2038(a)"
+    },
+    "renewal_fee_usd": {
+      "value": 2500,
+      "section": "2038",
+      "quote": "a licensee fee of two thousand five hundred dollars ($2,500)",
+      "note": "Annual licensee fee due by July 1; California licenses do not expire, so this is the recurring fee"
+    },
+    "decision_days": {
+      "value": null,
+      "section": "2033",
+      "quote": "the commissioner shall approve the application",
+      "note": "No deadline to approve or deny in the statute"
+    },
+    "exemptions": {
+      "value": [
+        "government:2010(a)",
+        "postal_service:2010(b)",
+        "government:2010(c)",
+        "bank:2010(d)",
+        "ebt_contractor:2010(e)",
+        "board_of_trade:2010(f)",
+        "payment_system:2010(g)",
+        "payment_system:2010(h)",
+        "broker_dealer:2010(i)",
+        "payroll_processor:2010(j)",
+        "agent_of_payee:2010(l)",
+        "payment_intermediary:2010(m)",
+        "futures_merchant:2010(n)",
+        "authorized_delegate:2030(a)"
+      ],
+      "section": "2010",
+      "quote": "This division does not apply to any of the following:",
+      "note": "(k) is not a separate exemption; it limits (d). Agents of licensees are exempt through 2030(a)."
+    }
+  }
+}

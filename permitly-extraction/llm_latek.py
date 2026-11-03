@@ -126,25 +126,43 @@ def quote_ok(f):
 
 
 def call_llm(messages):
-    body = json.dumps({"model": MODEL, "temperature": 0,
-                       "response_format": {"type": "json_object"},
-                       "messages": messages}).encode()
-    for attempt in range(5):
-        req = urllib.request.Request(
-            "https://api.groq.com/openai/v1/chat/completions", data=body,
-            headers={"Authorization": f"Bearer {KEY}", "Content-Type": "application/json",
-                     "User-Agent": "permitly-extraction/1.0"})
-        try:
-            with urllib.request.urlopen(req, timeout=120) as r:
-                data = json.loads(r.read())
-            return json.loads(data["choices"][0]["message"]["content"])
-        except urllib.error.HTTPError as e:
-            msg = e.read().decode()[:500]
-            if e.code == 429 and attempt < 4:
-                print("  Groq rate limit reached, waiting 30 seconds...")
-                time.sleep(30)
-                continue
-            sys.exit(f"Groq error {e.code}: {msg}")
+    """Ask Groq. Waits on rate limits. If the model returns an empty or invalid answer,
+    tries again with less reasoning, then without Groq's JSON mode (we read the JSON ourselves)."""
+    settings = [
+        {"response_format": {"type": "json_object"}},
+        {"response_format": {"type": "json_object"}, "reasoning_effort": "low"},
+        {"reasoning_effort": "low"},
+    ]
+    for extra in settings:
+        body = json.dumps({"model": MODEL, "temperature": 0, "messages": messages, **extra}).encode()
+        for attempt in range(5):
+            req = urllib.request.Request(
+                "https://api.groq.com/openai/v1/chat/completions", data=body,
+                headers={"Authorization": f"Bearer {KEY}", "Content-Type": "application/json",
+                         "User-Agent": "permitly-extraction/1.0"})
+            try:
+                with urllib.request.urlopen(req, timeout=180) as r:
+                    data = json.loads(r.read())
+                text = data["choices"][0]["message"]["content"] or ""
+                start, end = text.find("{"), text.rfind("}")
+                if start != -1 and end > start:
+                    return json.loads(text[start:end + 1])
+                print("  Empty answer from the model, trying again with different settings...")
+                break
+            except json.JSONDecodeError:
+                print("  Answer was not valid JSON, trying again with different settings...")
+                break
+            except urllib.error.HTTPError as e:
+                msg = e.read().decode()[:500]
+                if e.code == 429 and attempt < 4:
+                    print("  Groq rate limit reached, waiting 30 seconds...")
+                    time.sleep(30)
+                    continue
+                if e.code == 400 and "json_validate_failed" in msg:
+                    print("  Model returned an empty or invalid answer, trying again with different settings...")
+                    break
+                sys.exit(f"Groq error {e.code}: {msg}")
+    sys.exit("The model did not return a usable answer after 3 tries.")
 
 
 def to_number(v):
