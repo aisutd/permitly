@@ -1,7 +1,8 @@
 {
   "model": "openai/gpt-oss-120b",
-  "version": "v3",
+  "version": "v4",
   "first_pass_bad_or_missing": [],
   "fixed_on_retry": [],
+  "exemptions_alone": false,
   "still_bad": []
 }

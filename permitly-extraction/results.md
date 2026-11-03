@@ -15,6 +15,12 @@ Each row is one stage of the project in order. Scores are field-level accuracy a
 | 7. Third new state | Ran regex and LLM v2 on Delaware, no changes (law replaced July 2026, SB 18) | — | — | — | **Regex 4/10, LLM 7/10 (unseen)** | Regex 1, LLM 0 |
 | 8. LLM v3 | Approve-or-deny-only deadline rule, full citation paths, clearer tiered/formula definition, keeps cents, smaller retry | 9/10 | 9/10 | 10/10 | 9/10 | 0 (4 fixed on retry in DE) |
 | 9. Fourth new state | Ran regex and LLM v3 on California, no changes | — | — | — | CA: Regex 4/10, LLM v3 8/10 (unseen) | Regex 1, LLM 0 (3 fixed on retry) |
+STAGE 10: LLM v4 (exemption fixes)
+* Changes: agents of licensees are often exempted in the license section; one tag per paragraph; exemptions-only request if exemptions are still missing; stricter exemption format check.
+* Result: TX 9, KY 9, FL 10, DE 10, CA 8 = 46/50 (v3: 45/50). 0 fake quotes.
+* The exemptions-only request fired once (CA) and fixed exemptions to 13 of 14.
+* Remaining misses: citation depth (TX, KY), tag choice (CA), KY agent exemption, CA bond tiered vs formula (key under review).
+* Not an unseen test: these states shaped v4.
 
 **Headline (unseen states only, first run on each):**
 - Regex: **11/30 = 37%** (KY 6, FL 1, DE 4)

@@ -34,4 +34,4 @@
 
 ## Fields that failed
 
-- **exemptions**: 7 of 9 found; missed ['authorized_delegate:286.11-005(1)', 'service_provider_to_bank:286.11-007(5)']; wrong ['authorized_delegate:286.11-007(5)']
+- **exemptions**: 7 of 9 found; missed ['authorized_delegate:286.11-005(1)', 'blockchain_software:286.11-007(8)']; wrong ['blockchain_software:286.11-007(8)(a)']

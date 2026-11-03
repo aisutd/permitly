@@ -28,11 +28,11 @@
 | application_fee_usd | correct | 5000 | 5000 |
 | renewal_fee_usd | correct | 2500 | 2500 |
 | decision_days | correct | None | None |
-| exemptions | WRONG | 14 | 14 |
+| exemptions | WRONG | 15 | 14 |
 
 **Field-level accuracy: 8/10 = 80%. Answers thrown out for fake quotes: 0.**
 
 ## Fields that failed
 
 - **bond_structure**: tiered (sec 2037) vs formula (sec 2037)
-- **exemptions**: 13 of 14 found; missed ['authorized_delegate:2030(a)']; wrong ['trust_company:2010(d)']
+- **exemptions**: 13 of 14 found; missed ['payment_system:2010(g)']; wrong ['bank:2010(k)', 'payment_intermediary:2010(g)']

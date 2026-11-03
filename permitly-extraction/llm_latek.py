@@ -1,19 +1,15 @@
-"""LLM extractor, v3 (current). Older versions: llm_latek_v1.py, llm_latek_v2.py.
+"""LLM extractor, v4 (current). Older versions: llm_latek_v1.py, llm_latek_v2.py, llm_latek_v3.py.
 
 Asks an LLM on Groq to fill the same 10 fields as latek.py (regex).
 
-v2 changes (from v1):
-- Stricter quote rules: one continuous stretch, no "...", keep markers like (A).
-- Checks its own quotes and missing fields; asks the model once to fix them.
-- Short definitions for each exemption tag.
-- Waits and retries automatically on Groq's free-tier rate limit.
-
-v3 changes (from v2, based on the Delaware blind test):
-- decision_days counts only an approve-or-deny deadline, not notice deadlines.
-- Exemption citations use the full subsection path, e.g. 2305(a)(1).
-- Clearer "tiered" vs "formula" definition with examples.
-- Fixed two prompt lines that had merged into one.
-- Dollar amounts keep cents (e.g. 172.50) instead of being cut to whole dollars.
+v2 (from v1): stricter quote rules; self-check with one retry; tag definitions; rate-limit waits.
+v3 (from v2, Delaware): approve-or-deny-only deadline rule; full citation paths; clearer
+    tiered vs formula; keeps cents; smaller retry; retries when Groq returns an empty answer.
+v4 (from v3, exemption misses in TX, KY, FL, DE, CA):
+- Agents of licensees are often exempted in the license section, not the exemptions list.
+- One tag per paragraph (the main type of entity it exempts).
+- If exemptions are still missing after the retry, ask for exemptions alone, sending only
+  the exemption and license sections (keeps the request small).
 
 Run:   python llm_latek.py FL
 Needs: export GROQ_API_KEY="your key"  and  export GROQ_MODEL="openai/gpt-oss-120b"
@@ -30,7 +26,7 @@ import urllib.request
 from datetime import date
 from pathlib import Path
 
-VERSION = "v3"
+VERSION = "v4"
 STATE = sys.argv[1]
 MODEL = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
 KEY = os.environ.get("GROQ_API_KEY")
@@ -83,6 +79,11 @@ SYSTEM = (
     "If the text does not state a value, set value and quote to null. Respond with JSON only."
 )
 
+EX_RULES = f"""exemptions: value is a list of strings "tag:SECTION(PATH)", for example "bank:100.10(4)" or "authorized_delegate:100.20(c)(1)", one for every paragraph that exempts a type of person or business, in any section. Write PATH as the full chain of subsection markers exactly as printed: if paragraph (1) sits under subsection (a), write 100.10(a)(1), not 100.10(1). Use exactly ONE tag per paragraph: the main type of person or business it exempts, even if the paragraph names several. Check the license-required section too: wording such as "or is an agent of a licensee", "an authorized delegate of a licensee", or "unless ... an agent of a person licensed" exempts agents, so add "authorized_delegate" with that section's path. Return it in the same {{"value": [...], "section": ..., "quote": ...}} form; the quote is the sentence that introduces the main list of exemptions. Never leave this field out.
+
+Exemption tags (use only these):
+{TAG_LINES}"""
+
 PROMPT = f"""Fill these 10 fields for this state's money transmitter license.
 For each field return {{"value": ..., "section": "<id from the === SECTION === header>", "quote": "<exact continuous words from that section>"}}.
 
@@ -95,10 +96,7 @@ net_worth_min_usd: the minimum net worth, as a number.
 application_fee_usd: the application fee for the main money transmitter license, as a number. If several fees are listed, choose the one for the main license, not branches, locations, or caps.
 renewal_fee_usd: the renewal fee for the main money transmitter license, as a number, or null.
 decision_days: the number of days the regulator has to approve or deny a complete application, or null. Count only a deadline for the approve-or-deny decision itself. Do not use deadlines for sending notices, completeness reviews, hearings, appeals, or payments. If the law sets no approve-or-deny deadline, return null.
-exemptions: value is a list of strings "tag:SECTION(PATH)", for example "bank:100.10(4)" or "authorized_delegate:100.20(c)(1)", one for every paragraph that exempts a type of person or business, in any section. Write PATH as the full chain of subsection markers exactly as printed: if paragraph (1) sits under subsection (a), write 100.10(a)(1), not 100.10(1). Return it in the same {{"value": [...], "section": ..., "quote": ...}} form; the quote is the sentence that introduces the main list of exemptions. Never leave this field out.
-
-Exemption tags (use only these):
-{TAG_LINES}
+{EX_RULES}
 
 Return: {{"fields": {{"license_required": {{...}}, "bond_structure": {{...}}, ...all 10...}}}}
 
@@ -176,6 +174,14 @@ def to_number(v):
     return int(n) if n.is_integer() else n
 
 
+def exemptions_ok(f):
+    """Exemptions must be a list of "tag:SECTION(PATH)" strings, with a real quote."""
+    v = f.get("value") if f else None
+    return (isinstance(v, list) and len(v) > 0
+            and all(isinstance(x, str) and ":" in x and "(" in x for x in v)
+            and quote_ok(f))
+
+
 # Keep the regex results before overwriting out/STATE.json
 out = Path(f"out/{STATE}.json")
 if out.exists() and json.loads(out.read_text())["record_info"].get("made_by") in ("extract.py", "latek.py"):
@@ -184,10 +190,12 @@ if out.exists() and json.loads(out.read_text())["record_info"].get("made_by") in
     if rep.exists():
         shutil.copy(rep, f"out/{STATE}_report_regex.md")
 
+# 1. Ask for all 10 fields
 messages = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": PROMPT}]
 first = call_llm(messages)
 got = {k: as_field(v) for k, v in first.get("fields", first).items()}
 
+# 2. One retry for missing fields or inexact quotes
 first_bad = [n for n in FIELDS if n not in got or not quote_ok(got[n])]
 fixed = []
 if first_bad:
@@ -197,8 +205,6 @@ if first_bad:
         f"- {n}: MISSING from your answer" if n not in got
         else f"- {n}: {got[n].get('quote')!r} (section {got[n].get('section')})"
         for n in first_bad)
-        # Fresh, smaller retry: the same prompt plus a short note, without resending the first answer
-    # (resending it made Texas too large for Groq's free tier).
     messages = [
         {"role": "system", "content": SYSTEM},
         {"role": "user", "content": PROMPT +
@@ -216,6 +222,25 @@ if first_bad:
             if quote_ok(got[n]):
                 fixed.append(n)
 
+# 3. v4: if exemptions are still missing, ask for them alone with only the relevant sections
+exemptions_alone = False
+if not exemptions_ok(got.get("exemptions")):
+    keep = {sid: t for sid, t in SECTIONS.items()
+            if re.search(r"exempt|does not apply|engage in the business of money transmission", t, re.I)}
+    small_law = "\n\n".join(f"=== SECTION {sid} ===\n{t}" for sid, t in keep.items())
+    print(f"Exemptions still missing: asking for them alone ({len(keep)} of {len(SECTIONS)} sections)...")
+    ex_prompt = ("Fill only the exemptions field for this state's money transmitter license.\n"
+                 + EX_RULES +
+                 '\n\nReturn: {"fields": {"exemptions": {"value": [...], "section": "...", "quote": "..."}}}'
+                 "\n\nLAW TEXT:\n" + small_law)
+    ex = call_llm([{"role": "system", "content": SYSTEM}, {"role": "user", "content": ex_prompt}])
+    exf = as_field(ex.get("fields", ex).get("exemptions"))
+    if exemptions_ok(exf):
+        got["exemptions"] = exf
+        exemptions_alone = True
+        if "exemptions" not in fixed:
+            fixed.append("exemptions")
+
 still_bad = [n for n in FIELDS if n not in got or not quote_ok(got[n])]
 
 fields = {}
@@ -224,8 +249,12 @@ for name in FIELDS:
     value = f.get("value")
     if name in NUMBER_FIELDS:
         value = to_number(value)
+    if name == "exemptions" and isinstance(value, list):
+        value = [x if isinstance(x, str) else f"{x.get('tag')}:{x.get('section')}" for x in value]
     note = "llm"
-    if name in fixed:
+    if name == "exemptions" and exemptions_alone:
+        note = "llm (fixed by exemptions-only request)"
+    elif name in fixed:
         note = "llm (fixed on retry)"
     elif name in still_bad:
         note = "llm (missing or quote not exact)"
@@ -241,10 +270,11 @@ out.write_text(json.dumps(record, indent=2), encoding="utf-8")
 Path(f"out/{STATE}_llm_raw.json").write_text(json.dumps(got, indent=2), encoding="utf-8")
 Path(f"out/{STATE}_llm_log.json").write_text(json.dumps(
     {"model": MODEL, "version": VERSION, "first_pass_bad_or_missing": first_bad,
-     "fixed_on_retry": fixed, "still_bad": still_bad}, indent=2), encoding="utf-8")
+     "fixed_on_retry": fixed, "exemptions_alone": exemptions_alone, "still_bad": still_bad},
+    indent=2), encoding="utf-8")
 
 print(f"\nSaved out/{STATE}.json (LLM {VERSION}: {MODEL})")
-print(f"Fields: {len(first_bad)} missing or inexact on first try, {len(fixed)} fixed on retry, {len(still_bad)} still bad\n")
+print(f"Fields: {len(first_bad)} missing or inexact on first try, {len(fixed)} fixed, {len(still_bad)} still bad\n")
 for name, f in fields.items():
     shown = f"{len(f['value'])} items" if isinstance(f["value"], list) else f["value"]
     print(f"  {name:21} {str(shown):16} section {f['section']}   {f['note']}")

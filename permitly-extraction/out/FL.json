@@ -2,8 +2,8 @@
   "record_info": {
     "state": "FL",
     "license_type": "money_transmission",
-    "made_by": "llm_latek.py v3 (openai/gpt-oss-120b)",
-    "date": "2026-11-02"
+    "made_by": "llm_latek.py v4 (openai/gpt-oss-120b)",
+    "date": "2026-11-03"
   },
   "fields": {
     "license_required": {
@@ -45,13 +45,13 @@
     "application_fee_usd": {
       "value": 375,
       "section": "560.143",
-      "quote": "LICENSE APPLICATION FEES.\u2014The applicable non-refundable fees must accompany an application for licensure: (a)\u2003Part II..........$375.",
+      "quote": "Part II..........$375.",
       "note": "llm"
     },
     "renewal_fee_usd": {
       "value": 750,
       "section": "560.143",
-      "quote": "LICENSE RENEWAL FEES.\u2014The applicable non-refundable license renewal fees must accompany a renewal of licensure: (a)\u2003Part II..........$750.",
+      "quote": "Part II..........$750.",
       "note": "llm"
     },
     "decision_days": {

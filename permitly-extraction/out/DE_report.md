@@ -28,10 +28,10 @@
 | application_fee_usd | correct | 172.5 | 172.5 |
 | renewal_fee_usd | correct | 230 | 230 |
 | decision_days | correct | None | None |
-| exemptions | WRONG | 14 | 15 |
+| exemptions | correct | 15 | 15 |
 
-**Field-level accuracy: 9/10 = 90%. Answers thrown out for fake quotes: 0.**
+**Field-level accuracy: 10/10 = 100%. Answers thrown out for fake quotes: 0.**
 
 ## Fields that failed
 
-- **exemptions**: 14 of 15 found; missed ['authorized_delegate:2304(b)(1)']
+none

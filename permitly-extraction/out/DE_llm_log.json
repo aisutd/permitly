@@ -1,17 +1,12 @@
 {
   "model": "openai/gpt-oss-120b",
-  "version": "v3",
+  "version": "v4",
   "first_pass_bad_or_missing": [
-    "application_fee_usd",
-    "renewal_fee_usd",
-    "decision_days",
-    "exemptions"
+    "renewal_fee_usd"
   ],
   "fixed_on_retry": [
-    "application_fee_usd",
-    "renewal_fee_usd",
-    "decision_days",
-    "exemptions"
+    "renewal_fee_usd"
   ],
+  "exemptions_alone": false,
   "still_bad": []
 }

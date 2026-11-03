@@ -13,7 +13,7 @@
 | application_fee_usd | ok | ok |
 | renewal_fee_usd | ok | no answer |
 | decision_days | ok | ok |
-| exemptions | ok | no answer |
+| exemptions | ok | ok |
 
 ## B. Accuracy
 
@@ -28,10 +28,10 @@
 | application_fee_usd | correct | 10000 | 10000 |
 | renewal_fee_usd | correct | None | None |
 | decision_days | correct | 120 | 120 |
-| exemptions | WRONG | 0 | 18 |
+| exemptions | WRONG | 18 | 18 |
 
 **Field-level accuracy: 9/10 = 90%. Answers thrown out for fake quotes: 0.**
 
 ## Fields that failed
 
-- **exemptions**: 0 of 18 found; missed ['agent_of_payee:152.004(2)', 'attorney_or_title:152.004(9)', 'authorized_delegate:152.101(c)(1)', 'bank:152.004(7)', 'board_of_trade:152.004(11)', 'broker_dealer:152.004(13)', 'ebt_contractor:152.004(10)', 'employee:152.004(14)', 'futures_merchant:152.004(12)', 'government:152.004(4)', 'government:152.004(6)', 'incidental_business:152.101(e)', 'payment_intermediary:152.004(3)', 'payment_system:152.004(1)', 'postal_service:152.004(5)', 'regulator_exempts:152.004(16)', 'service_provider_to_bank:152.004(15)', 'trust_company:152.004(8)']
+- **exemptions**: 17 of 18 found; missed ['incidental_business:152.101(e)']; wrong ['incidental_business:152.101(e)(1)']

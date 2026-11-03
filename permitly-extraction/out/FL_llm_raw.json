@@ -32,12 +32,12 @@
   "application_fee_usd": {
     "value": 375,
     "section": "560.143",
-    "quote": "LICENSE APPLICATION FEES.\u2014The applicable non-refundable fees must accompany an application for licensure: (a)\u2003Part II..........$375."
+    "quote": "Part II..........$375."
   },
   "renewal_fee_usd": {
     "value": 750,
     "section": "560.143",
-    "quote": "LICENSE RENEWAL FEES.\u2014The applicable non-refundable license renewal fees must accompany a renewal of licensure: (a)\u2003Part II..........$750."
+    "quote": "Part II..........$750."
   },
   "decision_days": {
     "value": 90,
