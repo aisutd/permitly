@@ -1,0 +1,70 @@
+{
+  "license_required": {
+    "value": true,
+    "section": "19.230.030",
+    "quote": "A person may not engage in the business of money transmission, or advertise, solicit, or hold itself out as providing money transmission, unless the person is:"
+  },
+  "bond_structure": {
+    "value": "formula",
+    "section": "19.230.050",
+    "quote": "Each money transmitter licensee shall maintain a surety bond in an amount based on the previous year's money transmission dollar volume; and the previous year's payment instrument dollar volume."
+  },
+  "bond_min_usd": {
+    "value": 10000,
+    "section": "19.230.050",
+    "quote": "The minimum surety bond must be at least ten thousand dollars"
+  },
+  "bond_max_usd": {
+    "value": 1000000,
+    "section": "19.230.050",
+    "quote": "the director may increase the amount of the bond required up to a maximum of one million dollars"
+  },
+  "net_worth_structure": {
+    "value": "set_by_regulator",
+    "section": "19.230.060",
+    "quote": "The director shall require a tangible net worth of at least ten thousand dollars and not more than three million dollars"
+  },
+  "net_worth_min_usd": {
+    "value": 10000,
+    "section": "19.230.060",
+    "quote": "The director shall require a tangible net worth of at least ten thousand dollars"
+  },
+  "application_fee_usd": {
+    "value": 1000,
+    "section": "WAC208-690-130",
+    "quote": "A application fee of one thousand dollars."
+  },
+  "renewal_fee_usd": {
+    "value": null,
+    "section": null,
+    "quote": null
+  },
+  "decision_days": {
+    "value": null,
+    "section": null,
+    "quote": null
+  },
+  "exemptions": {
+    "value": [
+      "government:19.230.020(1)",
+      "postal_service:19.230.020(2)",
+      "government:19.230.020(3)",
+      "bank:19.230.020(4)",
+      "ebt_contractor:19.230.020(5)",
+      "board_of_trade:19.230.020(6)",
+      "futures_merchant:19.230.020(7)",
+      "payment_intermediary:19.230.020(8)",
+      "payment_system:19.230.020(9)",
+      "broker_dealer:19.230.020(10)",
+      "other:19.230.020(11)",
+      "other:19.230.020(12)",
+      "attorney_or_title:19.230.020(13)",
+      "other:19.230.020(14)",
+      "payroll_processor:19.230.020(15)",
+      "other:19.230.020(16)",
+      "authorized_delegate:19.230.030(b)"
+    ],
+    "section": "19.230.020",
+    "quote": "This chapter does not apply to:"
+  }
+}

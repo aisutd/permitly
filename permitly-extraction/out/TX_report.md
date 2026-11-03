@@ -28,10 +28,10 @@
 | application_fee_usd | correct | 10000 | 10000 |
 | renewal_fee_usd | correct | None | None |
 | decision_days | correct | 120 | 120 |
-| exemptions | WRONG | 18 | 18 |
+| exemptions | WRONG | 17 | 18 |
 
 **Field-level accuracy: 9/10 = 90%. Answers thrown out for fake quotes: 0.**
 
 ## Fields that failed
 
-- **exemptions**: 17 of 18 found; missed ['incidental_business:152.101(e)']; wrong ['incidental_business:152.101(e)(1)']
+- **exemptions**: 17 of 18 found; missed ['incidental_business:152.101(e)']

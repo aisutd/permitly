@@ -1,0 +1,130 @@
+RCW 19.230.040 Application for a money transmitter license.
+(1) A person applying for a money transmitter license under this chapter
+shall do so in a form and in a medium prescribed in rule by the
+director. The application must state or contain:
+(a) The legal name, business addresses, and residential address,
+if applicable, of the applicant and any fictitious or trade name used
+by the applicant in conducting its business;
+(b) The legal name, residential and business addresses, date of
+birth, social security number or tax payer identification number, and
+employment history for the five-year period preceding the submission
+of the application of the applicant's proposed responsible individual.
+In addition, the proposed responsible individual must reside in the
+United States, and the applicant shall provide the fingerprints of the
+proposed responsible individual upon the request of the director;
+(c) For the ten-year period preceding submission of the
+application, a list of any criminal convictions of the proposed
+responsible individual of the applicant, any material litigation in
+which the applicant has been involved, and any litigation involving
+the proposed responsible individual relating to the provision of money
+services;
+(d) A description of any money services previously provided by
+the applicant and the money services that the applicant seeks to
+provide to persons in Washington state;
+(e) A list of the applicant's proposed authorized delegates and
+the locations where the applicant and its authorized delegates will
+engage in the provision of money services to persons in Washington
+state on behalf of the licensee;
+(f) A list of other states in which the applicant is licensed to
+engage in money transmission, or provide other money services, and any
+license revocations, suspensions, restrictions, or other disciplinary
+action taken against the applicant in another state;
+(g) A list of any license revocations, suspensions, restrictions,
+or other disciplinary action taken against any money services business
+involving the proposed responsible individual;
+(h) Information concerning any bankruptcy or receivership
+proceedings involving or affecting the applicant or the proposed
+responsible individual;
+(i) A sample form of contract for authorized delegates, if
+applicable;
+(j) A description of the source of money and credit to be used by
+the applicant to provide money services; and
+(k) Any other information regarding the background, experience,
+character, financial responsibility, and general fitness of the
+applicant, the applicant's responsible individual, or authorized
+delegates that the director may require in rule.
+(2) If an applicant is a corporation, limited liability company,
+partnership, or other entity, the applicant shall also provide:
+(a) The date of the applicant's incorporation or formation and
+state or country of incorporation or formation;
+(b) If applicable, a certificate of good standing from the state
+or country in which the applicant is incorporated or formed;
+(c) A brief description of the structure or organization of the
+applicant, including any parent or subsidiary of the applicant, and
+whether any parent or subsidiary is publicly traded;
+(d) The legal name, any fictitious or trade name, all business
+and residential addresses, date of birth, social security number, and
+employment history in the ten-year period preceding the submission of
+the application for each executive officer, board director, or person
+that has control of the applicant;
+(e) If the applicant or its corporate parent is not a publicly
+traded entity, the director may request the fingerprints of each
+executive officer, board director, or person that has control of the
+applicant;
+(f) A list of any criminal convictions, material litigation, and
+any litigation related to the provision of money services, in the ten-year period preceding the submission of the application in which any
+executive officer, board director, or person in control of the
+applicant has been involved;
+(g) A copy of the applicant's audited financial statements for
+the most recent fiscal year or, if the applicant is a wholly owned
+subsidiary of another corporation, the most recent audited
+consolidated annual financial statement of the parent corporation or
+the applicant's most recent audited consolidated annual financial
+statement, and in each case, if available, for the two-year period
+preceding the submission of the application;
+(h) A copy of the applicant's unconsolidated financial statements
+for the current fiscal year, whether audited or not, and, if
+available, for the two-year period preceding the submission of the
+application;
+(i) If the applicant is publicly traded, a copy of the most
+recent report filed with the United States securities and exchange
+commission under section 13 of the federal Securities Exchange Act of
+1934 (15 U.S.C. Sec. 78m);
+(j) If the applicant is a wholly owned subsidiary of:
+(i) A corporation publicly traded in the United States, a copy of
+audited financial statements for the parent corporation for the most
+recent fiscal year or a copy of the parent corporation's most recent
+report filed under section 13 of the federal Securities Exchange Act
+of 1934 (15 U.S.C. Sec. 78m); or
+(ii) A corporation publicly traded outside the United States, a
+copy of similar documentation filed with the regulator of the parent
+corporation's domicile outside the United States;
+(k) If the applicant has a registered agent in this state, the
+name and address of the applicant's registered agent in this state;
+and
+(l) Any other information that the director may require in rule
+regarding the applicant, each executive officer, or each board
+director to determine the applicant's background, experience,
+character, financial responsibility, and general fitness.
+(3) A nonrefundable application fee and an initial license fee,
+as determined in rule by the director, must accompany an application
+for a license under this chapter. The initial license fee must be
+refunded if the application is denied.
+(4) As part of or in connection with an application for any
+license under this section, or periodically upon license renewal, each
+officer, director, responsible individual, and owner applicant shall
+furnish information concerning his or her identity, including
+fingerprints for submission to the Washington state patrol or the
+federal bureau of investigation for a state and national criminal
+history background check, personal history, experience, business
+record, purposes, and other pertinent facts, as the director may
+reasonably require. As part of or in connection with an application
+for a license under this chapter, or periodically upon license
+renewal, the director is authorized to receive criminal history record
+information that includes nonconviction data as defined in RCW
+10.97.030. The department may only disseminate nonconviction data
+obtained under this section to criminal justice agencies. This section
+does not apply to financial institutions regulated under chapters
+31.12 and 31.13 RCW and Titles 32 and 33 RCW. The requirements of this
+subsection do not apply when the applicant or its corporate parents
+are publicly traded entities.
+(5) For business models that store virtual currency on behalf of
+others, the applicant must provide a third-party security audit of all
+electronic information and data systems acceptable to the director.
+(6) The director or the director's designated representative may
+deny an application for a proposed license or trade name if the
+proposed license or trade name is similar to a currently existing
+licensee name, including trade names.
+(7) The director may waive one or more requirements of this
+section or permit an applicant to submit other information in lieu of
+the required information.

@@ -1,0 +1,81 @@
+RCW 19.230.020 Application of chapter—Exclusions.
+This chapter does not apply to:
+(1) The United States or a department, agency, or instrumentality thereof;
+(2) The United States postal service or a contractor on behalf of
+the United States postal service;
+(3) A state, county, city, or a department, agency, or instrumentality thereof;
+(4) A financial institution or its subsidiaries, affiliates, and
+service corporations, or any office of an international banking
+corporation, branch of a foreign bank, or corporation organized
+pursuant to the Bank Service Corporation Act (12 U.S.C. Sec.
+1861-1867) or a corporation organized under the Edge Act (12 U.S.C.
+Sec. 611-633);
+(5) Electronic funds transfer of governmental benefits for a
+federal, state, county, or governmental agency by a contractor on
+behalf of the United States or a department, agency, or
+instrumentality thereof, or a state or governmental subdivision,
+agency, or instrumentality thereof;
+(6) A board of trade designated as a contract market under the
+federal Commodity Exchange Act (7 U.S.C. Sec. 1-25) or a person that,
+in the ordinary course of business, provides clearance and settlement
+services for a board of trade to the extent of its operation as, or
+for, a board of trade;
+(7) A registered futures commission merchant under the federal
+commodities laws to the extent of its operation as such a merchant;
+(8) A person that provides clearance or settlement services under
+a registration as a clearing agency, or an exemption from that
+registration granted under the federal securities laws, to the extent
+of its operation as such a provider;
+(9) A person:
+(a) Operating a payment system that provides processing,
+clearing, or settlement services, between or among persons who are all
+excluded by this section, in connection with wire transfers, credit
+card transactions, debit card transactions, prepaid access
+transactions, automated clearinghouse transfers, or similar funds
+transfers;
+(b) Who is a contracted service provider of an entity in
+subsection (4) of this section that provides processing, clearing, or
+settlement services in connection with wire transfers, credit card
+transactions, debit card transactions, prepaid access transactions,
+automated clearinghouse transfers, or similar funds transfers; or
+(c) That facilitates payment for goods or services (not including
+money transmission itself) or bill payment through a clearance and
+settlement process using bank secrecy act regulated institutions
+pursuant to a written contract with the payee and either payment to
+the person facilitating the payment processing satisfies the payor's
+obligation to the payee or that obligation is otherwise extinguished;
+(10) A person registered as a securities broker-dealer or
+investment advisor under federal or state securities laws to the
+extent of its operation as such a broker-dealer or investment advisor;
+(11) An insurance company, title insurance company, or escrow
+agent to the extent that such an entity is lawfully authorized to
+conduct business in this state as an insurance company, title
+insurance company, or escrow agent and to the extent that they engage
+in money transmission or currency exchange as an ancillary service
+when conducting insurance, title insurance, or escrow activity;
+(12) The issuance, sale, use, redemption, or exchange of closed
+loop prepaid access or of payment instruments by a person licensed
+under chapter 31.45 RCW;
+(13) An attorney, to the extent that the attorney is lawfully
+authorized to practice law in this state and to the extent that the
+attorney engages in money transmission or currency exchange as an
+ancillary service to the practice of law;
+(14) A seller or issuer of prepaid access when the funds are
+covered by federal deposit insurance immediately upon sale or issue;
+(15) A person that transmits wages, salaries, or employee
+benefits on behalf of employers when the money transmission or
+currency exchange is an ancillary service in a suite of services that
+may include, but is not limited to, the following: Facilitate the
+payment of payroll taxes to state and federal agencies, make payments
+relating to employee benefit plans, make distribution of other
+authorized deductions from an employees' wages or salaries, or
+transmit other funds on behalf of an employer in connection with
+transactions related to employees; or
+(16) The lawful business of bookkeeping or accounting to the
+extent the money transmission or currency exchange is an ancillary
+service.
+The director may, at his or her discretion, waive applicability
+of the licensing provisions of this chapter when the director
+determines it necessary to facilitate commerce and protect consumers.
+The burden of proving the applicability of an exclusion or exception
+from licensing is upon the person claiming the exclusion or exception.

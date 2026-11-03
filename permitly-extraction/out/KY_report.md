@@ -28,10 +28,10 @@
 | application_fee_usd | correct | 500 | 500 |
 | renewal_fee_usd | correct | 500 | 500 |
 | decision_days | correct | 120 | 120 |
-| exemptions | WRONG | 8 | 9 |
+| exemptions | WRONG | 9 | 9 |
 
 **Field-level accuracy: 9/10 = 90%. Answers thrown out for fake quotes: 0.**
 
 ## Fields that failed
 
-- **exemptions**: 7 of 9 found; missed ['authorized_delegate:286.11-005(1)', 'blockchain_software:286.11-007(8)']; wrong ['blockchain_software:286.11-007(8)(a)']
+- **exemptions**: 8 of 9 found; missed ['blockchain_software:286.11-007(8)']; wrong ['blockchain_software:286.11-007(8)(a)']

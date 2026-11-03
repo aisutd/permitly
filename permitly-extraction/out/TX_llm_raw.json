@@ -2,7 +2,7 @@
   "license_required": {
     "value": true,
     "section": "152.101",
-    "quote": "A person may not engage in the business of money transmission or advertise, solicit, or hold itself out as engaging in the business of money transmission unless the person is licensed under this chapter."
+    "quote": "A person may not engage in the business of money transmission or advertise, solicit, or hold itself out as engaging in the business of money transmission unless the person is licensed under this chapter"
   },
   "bond_structure": {
     "value": "tiered",
@@ -12,7 +12,7 @@
   "bond_min_usd": {
     "value": 100000,
     "section": "152.352",
-    "quote": "the greater of: (A) $100,000; or (B) 100 percent of the licensee's average daily money transmission liability"
+    "quote": "(A)  $100,000;"
   },
   "bond_max_usd": {
     "value": 500000,
@@ -22,12 +22,12 @@
   "net_worth_structure": {
     "value": "tiered",
     "section": "152.351",
-    "quote": "for a licensee with total assets in an amount not greater than $100 million, the greater of:"
+    "quote": "(1)  for a licensee with total assets in an amount not greater than $100 million, the greater of:"
   },
   "net_worth_min_usd": {
     "value": 100000,
     "section": "152.351",
-    "quote": "(A) $100,000;"
+    "quote": "(A)  $100,000;"
   },
   "application_fee_usd": {
     "value": 10000,
@@ -62,8 +62,7 @@
       "employee:152.004(14)",
       "service_provider_to_bank:152.004(15)",
       "regulator_exempts:152.004(16)",
-      "authorized_delegate:152.101(c)(1)",
-      "incidental_business:152.101(e)(1)"
+      "authorized_delegate:152.101(c)(1)"
     ],
     "section": "152.004",
     "quote": "This chapter does not apply to:"

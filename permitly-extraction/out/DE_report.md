@@ -28,10 +28,10 @@
 | application_fee_usd | correct | 172.5 | 172.5 |
 | renewal_fee_usd | correct | 230 | 230 |
 | decision_days | correct | None | None |
-| exemptions | correct | 15 | 15 |
+| exemptions | WRONG | 16 | 15 |
 
-**Field-level accuracy: 10/10 = 100%. Answers thrown out for fake quotes: 0.**
+**Field-level accuracy: 9/10 = 90%. Answers thrown out for fake quotes: 0.**
 
 ## Fields that failed
 
-none
+- **exemptions**: 15 of 15 found; wrong ['regulator_exempts:2304(b)(2)']

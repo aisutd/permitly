@@ -21,6 +21,13 @@ STAGE 10: LLM v4 (exemption fixes)
 * The exemptions-only request fired once (CA) and fixed exemptions to 13 of 14.
 * Remaining misses: citation depth (TX, KY), tag choice (CA), KY agent exemption, CA bond tiered vs formula (key under review).
 * Not an unseen test: these states shaped v4.
+STAGE 11: Washington blind test (v4, no code changes)
+* Regex 2/10. LLM v4 7/10. 0 fake quotes.
+* LLM misses: bond tiered/formula vs set_by_regulator (defensible), renewal null vs 1000 (defensible: WA has no renewal, only an annual assessment), exemptions 12 of 19.
+* Exemption misses repeat known patterns: citation depth ((9) not split into (a)-(c); 030(b) not 030(1)(b)) and tag choice ((8), (11), (16)).
+* v4 agent rule worked: the 030 authorized delegate exemption was found.
+* Unseen totals: regex 17/50 = 34%; LLM 38/50 = 76%.
+* For key review: WA bond structure, WA renewal fee, CA bond structure.
 
 **Headline (unseen states only, first run on each):**
 - Regex: **11/30 = 37%** (KY 6, FL 1, DE 4)

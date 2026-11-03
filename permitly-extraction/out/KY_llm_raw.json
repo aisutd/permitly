@@ -42,7 +42,7 @@
   "decision_days": {
     "value": 120,
     "section": "286.11-019",
-    "quote": "within one hundred twenty (120) days from the date a complete application is submitted"
+    "quote": "shall approve, or deny in writing, every completed application for a license within one hundred twenty (120) days"
   },
   "exemptions": {
     "value": [
@@ -53,7 +53,8 @@
       "service_provider_to_bank:286.11-007(5)",
       "agent_of_payee:286.11-007(6)",
       "ebt_contractor:286.11-007(7)",
-      "blockchain_software:286.11-007(8)(a)"
+      "blockchain_software:286.11-007(8)(a)",
+      "authorized_delegate:286.11-005(1)"
     ],
     "section": "286.11-007",
     "quote": "This subtitle does not apply to:"

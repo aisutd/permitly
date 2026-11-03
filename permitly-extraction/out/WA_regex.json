@@ -1,0 +1,70 @@
+{
+  "record_info": {
+    "state": "WA",
+    "license_type": "money_transmission",
+    "made_by": "extract.py",
+    "date": "2026-11-03"
+  },
+  "fields": {
+    "license_required": {
+      "value": true,
+      "section": "19.230.030",
+      "quote": "(1) A person may not engage in the business of money transmission, or advertise, solicit, or hold itself out as providing money transmission, unless the person is:",
+      "note": ""
+    },
+    "bond_structure": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "bond_min_usd": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "bond_max_usd": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "net_worth_structure": {
+      "value": "flat",
+      "section": "19.230.060",
+      "quote": "A money transmitter licensed under this chapter shall maintain a tangible net worth, determined in accordance with generally accepted accounting principles, as determined in rule by the director.",
+      "note": ""
+    },
+    "net_worth_min_usd": {
+      "value": null,
+      "section": "19.230.060",
+      "quote": null,
+      "note": "no amount"
+    },
+    "application_fee_usd": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "renewal_fee_usd": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "decision_days": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "exemptions": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    }
+  }
+}
