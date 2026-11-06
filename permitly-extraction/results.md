@@ -28,6 +28,14 @@ STAGE 11: Washington blind test (v4, no code changes)
 * v4 agent rule worked: the 030 authorized delegate exemption was found.
 * Unseen totals: regex 17/50 = 34%; LLM 38/50 = 76%.
 * For key review: WA bond structure, WA renewal fee, CA bond structure.
+STAGE 13: Illinois blind test (v4, no code changes)
+* Regex 4/10, 1 answer thrown out for an unverifiable quote (first since v1; the guard audits regex too).
+* LLM v4 9/10, best blind score so far. 0 thrown out.
+* Cleared the deadline trap: 5-5 has the 120-day decision deadline and a 30-day denial notice a few paragraphs apart, the same structure that broke Delaware. Answered 120 correctly, so the v3 rule generalizes.
+* Exemptions correct on a blind state for the first time: all 17, including authorized_delegate:5-1(b)(1) in the license section, with correct citation depth throughout.
+* Only miss: renewal_fee null vs 1000. Illinois's renewal fee is tiered by volume ($1,000 base to $50,000 cap); the model declined, the key took the base tier. Same disagreement as Washington.
+* Regex failures of note: read the $1,000,000 volume threshold as the renewal fee; missed the bracket structure in net worth.
+* Blind totals, 6 states: regex 21/60 = 35%, LLM 47/60 = 78%.
 
 **Headline (unseen states only, first run on each):**
 - Regex: **11/30 = 37%** (KY 6, FL 1, DE 4)
