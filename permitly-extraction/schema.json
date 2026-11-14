@@ -1,0 +1,27 @@
+{
+  "_about": "Every state gets one record with exactly these fields. Every field holds a value, the section it came from, and a sentence copied verbatim from the law.",
+  "record_info": {
+    "state": "Two letter code, e.g. Texas as TX",
+    "license_type": "money_transmission",
+    "statute": "Name of the law, e.g. Tex. Fin. Code ch. 152",
+    "source_date": "Date you copied the law text, e.g. 2026-10-18"
+  },
+  "every_field_looks_like": {
+    "value": "The answer (either a number, true/false, a word, or a list)",
+    "section": "Where it came from, e.g. 152.352 (must match a file name in raw/STATE)",
+    "quote": "One sentence copied exactly from that section",
+    "note": "Anything a reader should know, e.g. 'bond depends on net worth'"
+  },
+  "fields": {
+    "license_required":    "true or false",
+    "bond_structure":      "one of the following: flat, formula, tiered, set_by_regulator",
+    "bond_min_usd":        "lowest bond amount in dollars, e.g. 100000",
+    "bond_max_usd":        "highest bond amount (the cap) in dollars, or null if none",
+    "net_worth_structure": "one of the following: flat, formula, tiered, none",
+    "net_worth_min_usd":   "lowest required net worth in dollars",
+    "application_fee_usd": "application fee in dollars",
+    "renewal_fee_usd":     "yearly renewal fee in dollars, or null if not found",
+    "decision_days":       "days the regulator has to approve or deny once the application is complete",
+    "exemptions":          "list of exemption labels from taxonomy.json, each with its paragraph number, e.g. agent_of_payee:2"
+  }
+}

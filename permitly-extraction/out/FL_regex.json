@@ -1,0 +1,74 @@
+{
+  "record_info": {
+    "state": "FL",
+    "license_type": "money_transmission",
+    "made_by": "extract.py",
+    "date": "2026-10-19"
+  },
+  "fields": {
+    "license_required": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "bond_structure": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "bond_min_usd": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "bond_max_usd": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "net_worth_structure": {
+      "value": "flat",
+      "section": "560.209",
+      "quote": "(1)\u2003A licensee must have a net worth of at least $100,000.",
+      "note": ""
+    },
+    "net_worth_min_usd": {
+      "value": 100000,
+      "section": "560.209",
+      "quote": "(1)\u2003A licensee must have a net worth of at least $100,000.",
+      "note": ""
+    },
+    "application_fee_usd": {
+      "value": 20000,
+      "section": "560.143",
+      "quote": "(g)\u2003License application fees for branch offices and authorized vendors are limited to $20,000 when such fees are assessed as a result of a change in controlling interest as defined in s.",
+      "note": ""
+    },
+    "renewal_fee_usd": {
+      "value": 20000,
+      "section": "560.143",
+      "quote": "(f)\u2003Renewal fees for branch offices and authorized vendors are limited to $20,000 biennially.",
+      "note": ""
+    },
+    "decision_days": {
+      "value": null,
+      "section": null,
+      "quote": null,
+      "note": "not found"
+    },
+    "exemptions": {
+      "value": [
+        "government:560.104(1)",
+        "government:560.104(2)",
+        "government:560.104(3)"
+      ],
+      "section": "560.104",
+      "quote": null,
+      "note": ""
+    }
+  }
+}

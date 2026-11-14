@@ -1,0 +1,10 @@
+{
+  "description": "Enhance user engagement with interactive glowing buttons that pulse and brighten on hover, perfect for websites seeking to attract attention and improve UX.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

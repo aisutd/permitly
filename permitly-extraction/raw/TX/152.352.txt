@@ -1,0 +1,11 @@
+Security for Money Transmission Licensee
+Sec. 152.352.  SECURITY FOR MONEY TRANSMISSION LICENSEE.  (a)  A money transmission licensee shall at all times maintain security consisting of a surety bond in a form satisfactory to the commissioner.  With the commissioner's approval, a money transmission licensee may maintain a deposit in lieu of a bond under this section.
+(b)  The amount of the required security for a money transmission licensee under this section is:
+(1)  for a licensee with a tangible net worth in an amount not greater than 10 percent of the licensee's total assets, the greater of:
+(A)  $100,000; or
+(B)  100 percent of the licensee's average daily money transmission liability in this state for the most recently completed three-month period, up to a maximum amount of $500,000; or
+(2)  for a licensee with a tangible net worth in an amount greater than 10 percent of the licensee's total assets, $100,000.
+(c)  A money transmission licensee that maintains a bond in the maximum amount provided for under Subsection (b) may not be required to calculate the licensee's average daily money transmission liability in this state for purposes of this section.
+(d)  A money transmission licensee may exceed the maximum required bond amount under Section 152.356(a)(5).
+
+Added by Acts 2023, 88th Leg., R.S., Ch. 277 (S.B. 895), Sec. 1.01, eff. September 1, 2023.

@@ -1,0 +1,7 @@
+{
+  "model": "openai/gpt-oss-120b",
+  "version": "v2",
+  "first_pass_bad_quotes": [],
+  "fixed_on_retry": [],
+  "still_bad": []
+}
