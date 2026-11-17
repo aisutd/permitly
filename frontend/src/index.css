@@ -1288,3 +1288,19 @@ footer {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+.chat-disclaimer {
+  padding: 12px 24px;
+  margin: 0;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.6;
+
+  color: #64748b;
+  background-color: #f8f6f1;
+
+  border-bottom: 1px solid #e5e2dc;
+}

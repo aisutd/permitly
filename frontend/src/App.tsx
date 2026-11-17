@@ -96,7 +96,7 @@ function getProfile(
     moderate: {
       bond: "Volume-based bond may apply",
       fees: "Standard application and renewal fees",
-      note: "Licensing is generally required with standard financial safeguards.",
+      note: "Licensing may be required, with financial safeguards depending on the state's rules.",
     },
     lenient: {
       bond: "Limited or no state bond in sample",
@@ -592,10 +592,13 @@ export default function App() {
         </div>
       </section>
 
-      <footer>
-        <span>Sample data for product exploration</span>
-        <span>Not legal advice · verify with state regulators</span>
-      </footer>
+    <footer>
+      <span>Demo only · Sample data, not verified legal requirements</span>
+      <span>
+      Permitly provides preliminary information, not legal advice.
+      Verify requirements with state regulators or qualified legal counsel.
+      </span>
+    </footer>
 
       {chatOpen && (
         <>
@@ -636,6 +639,11 @@ export default function App() {
                 </svg>
               </button>
             </div>
+            <p className="chat-disclaimer" role="note">
+             Demo responses may be incomplete or outdated.
+             Verify licensing requirements with official state sources.
+             This is not legal advice.
+            </p>
 
             <div className="chat-suggestions">
               <p>Suggested questions</p>
