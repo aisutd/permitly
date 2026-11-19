@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+openai
+scikit-learn
+pandas
+numpy
+joblib
+supabase
+# for tests only:
+pytest
+httpx
