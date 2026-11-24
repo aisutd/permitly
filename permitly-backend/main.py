@@ -237,3 +237,59 @@ def assess(body: DescriptionIn):
     # If only the LLM half fails, assess_business still returns the risk half
     # and explains the problem in "profile_error".
     return assess_business(body.description)
+
+@app.get("/states", dependencies=[Depends(rate_limit)])
+def list_states():
+    try:
+        result = (
+            db.get_client()
+            .table("states")
+            .select("code, name, license_type, statute, source_date")
+            .order("name")
+            .execute()
+        )
+        return {"states": result.data}
+    except Exception:
+        log.exception("Failed to retrieve states")
+        raise ApiError(503, "database_unavailable", "Unable to retrieve states")
+
+
+@app.get("/states/{code}", dependencies=[Depends(rate_limit)])
+def get_state(code: str):
+    code = code.upper()
+
+    try:
+        client = db.get_client()
+
+        state_result = (
+            client.table("states")
+            .select("*")
+            .eq("code", code)
+            .execute()
+        )
+
+        if not state_result.data:
+            raise ApiError(404, "state_not_found", "State not found")
+
+        requirements_result = (
+            client.table("state_requirements")
+            .select("field_name, value, section, quote, note")
+            .eq("state_code", code)
+            .order("field_name")
+            .execute()
+        )
+
+        return {
+            "state": state_result.data[0],
+            "requirements": requirements_result.data,
+        }
+
+    except ApiError:
+        raise
+    except Exception:
+        log.exception("Failed to retrieve state requirements")
+        raise ApiError(
+            503,
+            "database_unavailable",
+            "Unable to retrieve state requirements",
+        )
