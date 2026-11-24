@@ -185,19 +185,14 @@ def _need_model():
     except FileNotFoundError:
         raise ApiError(503, "model_not_trained", "The risk model is not trained yet. Run: python train_model.py")
 
-
-# ---------------------------------------------------------------------------
 # Endpoints
-# ---------------------------------------------------------------------------
 @app.get("/", response_class=HTMLResponse, include_in_schema=False)
 def home():
     return PAGE
 
-
 @app.get("/health")
 def health():
     return {"status": "ok", "classifier_loaded": risk_model.is_loaded()}
-
 
 @app.post("/classify", response_model=ClassifyOut, dependencies=[Depends(rate_limit)])
 def classify(body: DescriptionIn):
@@ -214,12 +209,10 @@ def classify(body: DescriptionIn):
         warnings=result["warnings"],
     )
 
-
 @app.post("/risk", dependencies=[Depends(rate_limit)])
 def risk(body: DescriptionIn):
     _need_model()
     return predict_risk(body.description)
-
 
 @app.post("/profile", dependencies=[Depends(rate_limit)])
 def profile(body: DescriptionIn):
@@ -229,7 +222,6 @@ def profile(body: DescriptionIn):
         raise ApiError(503, "llm_unavailable", str(error))
     except ValueError as error:    # the LLM answered, but not with a valid profile (twice)
         raise ApiError(502, "llm_bad_answer", str(error))
-
 
 @app.post("/assess", dependencies=[Depends(rate_limit)])
 def assess(body: DescriptionIn):
@@ -293,3 +285,146 @@ def get_state(code: str):
             "database_unavailable",
             "Unable to retrieve state requirements",
         )
+
+
+# B5: Ask licensing questions using statute retrieval
+
+from functools import lru_cache
+
+from rag.core import retrieve
+
+
+class AskIn(BaseModel):
+    question: str = Field(min_length=5, max_length=2000)
+    state: str = Field(min_length=2, max_length=50)
+
+
+STATE_NAMES = {
+    "CA": "California",
+    "DE": "Delaware",
+    "FL": "Florida",
+    "IL": "Illinois",
+    "KY": "Kentucky",
+    "TX": "Texas",
+    "WA": "Washington",
+    "NY": "New York",
+    "PA": "Pennsylvania",
+}
+
+
+@lru_cache(maxsize=1)
+def get_rag_model():
+    from sentence_transformers import SentenceTransformer
+    from rag.core import MODEL_NAME
+
+    return SentenceTransformer(MODEL_NAME, local_files_only=True)
+
+
+@app.post("/ask", dependencies=[Depends(rate_limit)])
+
+def ask_question(body: AskIn):
+    import chromadb
+    import llm
+    from rag.core import ROOT
+
+    state = STATE_NAMES.get(body.state.upper(), body.state)
+
+    try:
+        database = chromadb.PersistentClient(
+            path=str(ROOT / ".chroma")
+        )
+        collection = database.get_collection("statutes")
+        model = get_rag_model()
+
+        passages, message = retrieve(
+            collection,
+            body.question,
+            state,
+            model,
+            k=4,
+        )
+
+    except Exception:
+        log.exception("RAG retrieval failed")
+        raise ApiError(
+            503,
+            "rag_unavailable",
+            "Statute retrieval is currently unavailable.",
+        )
+
+    citations = []
+    evidence = []
+
+    for index, (document, metadata) in enumerate(passages, 1):
+        citations.append({
+            "id": index,
+            "state": metadata["state"],
+            "section": metadata["section"],
+            "source_url": metadata["url"],
+            "quote": document,
+        })
+
+        evidence.append(
+            f"[{index}] {metadata['state']} "
+            f"{metadata['section']}\n"
+            f"{document[:2000]}"
+        )
+
+    if message or not citations:
+        return {
+            "question": body.question,
+            "state": state,
+            "answer": message or "No supporting statute passages found.",
+            "citations": citations,
+        }
+
+    system_prompt = (
+        "You are Permitly, a legal research assistant. "
+        "Answer questions using ONLY the provided statute excerpts. "
+        "Do not invent legal requirements or citations. "
+        "Cite supporting passages using [1], [2], etc. "
+        "If the evidence is insufficient, explicitly say so. "
+        "Do not present your answer as professional legal advice."
+    )
+
+    user_prompt = (
+        f"State: {state}\n"
+        f"Question: {body.question}\n\n"
+        "STATUTE EXCERPTS:\n"
+        + "\n\n".join(evidence)
+    )
+
+    try:
+        answer = llm.chat([
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ])
+    except RuntimeError as error:
+        raise ApiError(503, "llm_unavailable", str(error))
+
+    if not answer.strip():
+        raise ApiError(
+            502,
+            "llm_bad_answer",
+            "The AI service returned an empty answer.",
+        )
+
+
+    from citation_verifier import verify_citations
+
+    verification = verify_citations(answer, citations)
+
+    if not verification["verified"]:
+        raise ApiError(
+            502,
+            "citation_verification_failed",
+            "The AI answer contains missing or invalid citations.",
+        )
+
+    return {
+        "question": body.question,
+        "state": state,
+        "answer": answer,
+        "citations": citations,
+         "verification": verification,
+    }

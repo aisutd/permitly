@@ -8,6 +8,12 @@ pandas
 numpy
 joblib
 supabase
+chromadb
+sentence-transformers
+requests
+beautifulsoup4
+pypdf
+
 # for tests only:
 pytest
 httpx

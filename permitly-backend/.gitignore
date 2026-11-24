@@ -4,3 +4,4 @@ __pycache__/
 *.pyc
 reports/
 .DS_Store
+rag/.chroma/
