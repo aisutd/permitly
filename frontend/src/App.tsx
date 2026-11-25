@@ -6,113 +6,173 @@ import {
   useState,
 } from "react";
 import usaMap from "@svg-maps/usa";
+import florida from "../../permitly-extraction/answer_key/FL.json";
+import kentucky from "../../permitly-extraction/answer_key/KY.json";
+import texas from "../../permitly-extraction/answer_key/TX.json";
 
-type RiskLevel = "strict" | "moderate" | "lenient";
-type BusinessType = "P2P payments" | "Remittance" | "Crypto" | "Payroll";
+type NumericField = { value: number | null; note: string };
 
-type StateProfile = {
-  risk: RiskLevel;
-  bond: string;
-  fees: string;
-  note: string;
+type StateRecord = {
+  record_info: { source_date: string };
+  fields: {
+    bond_structure: { note: string };
+    bond_min_usd: NumericField;
+    bond_max_usd: NumericField;
+    net_worth_min_usd: NumericField;
+    application_fee_usd: NumericField;
+    renewal_fee_usd: NumericField;
+    decision_days: NumericField;
+  };
+  sources: { label: string; href: string }[];
+  bondFormula?: (minimum: string, maximum: string) => string;
 };
 
-const strictStates = new Set([
-  "ca",
-  "ct",
-  "il",
-  "ma",
-  "mn",
-  "nj",
-  "ny",
-  "pa",
-  "wa",
+const mapLocations: { id: string; name: string; path: string }[] =
+  usaMap.locations;
+
+const stateRecords = new Map<string, StateRecord>([
+  ["fl", {
+    ...florida,
+    sources: [
+      { label: "Florida Statutes, Chapter 560", href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599/0560/0560.html" },
+      { label: "Florida Statutes, § 120.60", href: "https://www.leg.state.fl.us/Statutes/index.cfm?App_mode=Display_Statute&URL=0100-0199/0120/Sections/0120.60.html" },
+    ],
+  }],
+  ["ky", {
+    ...kentucky,
+    sources: [
+      { label: "Kentucky Revised Statutes, Chapter 286", href: "https://apps.legislature.ky.gov/law/statutes/chapter.aspx?id=38627" },
+    ],
+  }],
+  ["tx", {
+    ...texas,
+    sources: [
+      { label: "Texas Finance Code, Chapter 152", href: "https://statutes.capitol.texas.gov/Docs/FI/htm/FI.152.htm" },
+      { label: "Texas Administrative Code, § 33.27 (fees)", href: "https://www.law.cornell.edu/regulations/texas/7-Tex-Admin-Code-SS-33-27" },
+    ],
+    bondFormula: (minimum, maximum) =>
+      `If tangible net worth is 10% of total assets or less, the bond is the greater of ${minimum} or the average daily Texas money transmission liability over the last completed three months, capped at ${maximum}. Above 10%, the bond is ${minimum}.`,
+  }],
 ]);
 
-const lenientStates = new Set(["ak", "mt", "sd", "wy"]);
+const sourceDateFormat = new Intl.DateTimeFormat("en-US", {
+  dateStyle: "medium",
+  timeZone: "UTC",
+});
 
-const profileOverrides: Record<string, Partial<StateProfile>> = {
-  ca: {
-    bond: "$250,000 minimum",
-    fees: "$5,000 application fee",
-    note: "Broad licensing scope and substantial supervisory review.",
-  },
-  ny: {
-    bond: "Set by the superintendent",
-    fees: "Varies by investigation scope",
-    note: "New York applies one of the most intensive review frameworks.",
-  },
-  pa: {
-    bond: "$1,000,000 minimum",
-    fees: "$5,000 application fee",
-    note: "Higher sample bond threshold and ongoing reporting obligations.",
-  },
-  tx: {
-    bond: "Surety bond: [from statute]",
-    fees: "Fees: [from statute]",
-    note: "The sample bond may increase based on transmission volume and locations.",
-  },
-  mt: {
-    bond: "No state MTL bond in sample",
-    fees: "No state MTL application fee",
-    note: "Montana is treated as lenient in this sample classification.",
-  },
-};
+const usd = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
 
-function getProfile(
-  stateId: string,
-  businessType: BusinessType = "Remittance",
-): StateProfile {
-  let risk: RiskLevel;
+const bondBands = [
+  { name: "$5,000,000 or more", className: "strict", minimum: 5_000_000 },
+  {
+    name: "$1,000,000 to under $5,000,000",
+    className: "moderate",
+    minimum: 1_000_000,
+  },
+  { name: "Under $1,000,000", className: "lenient", minimum: 0 },
+];
 
-  if (businessType === "Payroll") {
-    risk =
-      stateId === "mo"
-        ? "strict"
-        : ["ca", "ny", "tx"].includes(stateId)
-          ? "moderate"
-          : "lenient";
-  } else if (businessType === "Crypto") {
-    risk =
-      stateId === "ny"
-        ? "strict"
-        : lenientStates.has(stateId)
-          ? "lenient"
-          : "moderate";
-  } else {
-    risk = strictStates.has(stateId)
-      ? "strict"
-      : lenientStates.has(stateId)
-        ? "lenient"
-        : "moderate";
-  }
+const legend = [...bondBands, { name: "No data", className: "no-data" }];
 
-  const defaults: Record<RiskLevel, Omit<StateProfile, "risk">> = {
-    strict: {
-      bond: "State-specific bond required",
-      fees: "Higher review and filing fees",
-      note: "More extensive licensing, bonding, and examination requirements.",
-    },
-    moderate: {
-      bond: "Volume-based bond may apply",
-      fees: "Standard application and renewal fees",
-      note: "Licensing is generally required with standard financial safeguards.",
-    },
-    lenient: {
-      bond: "Limited or no state bond in sample",
-      fees: "Lower or limited state fees",
-      note: "Fewer state-level money transmission requirements in this sample.",
-    },
-  };
-
-  return { risk, ...defaults[risk], ...profileOverrides[stateId] };
+function formatAmount(amount: number | null | undefined) {
+  return amount == null ? "Unavailable" : usd.format(amount);
 }
 
-const legend = [
-  { name: "Strict", className: "strict" },
-  { name: "Moderate", className: "moderate" },
-  { name: "Lenient", className: "lenient" },
-];
+function getProfile(stateId: string) {
+  const record = stateRecords.get(stateId)?.fields;
+  const minimum = record?.bond_min_usd.value;
+  const maximum = record?.bond_max_usd.value;
+  const applicationFee = record?.application_fee_usd.value;
+  const band =
+    maximum == null
+      ? undefined
+      : bondBands.find((band) => maximum >= band.minimum);
+  const bond =
+    minimum != null && maximum != null && minimum !== maximum
+      ? `${usd.format(minimum)}–${usd.format(maximum)}`
+      : formatAmount(maximum ?? minimum);
+
+  return {
+    risk: band?.className ?? "no-data",
+    bond,
+    fees: formatAmount(applicationFee),
+  };
+}
+
+function StateRequirements({
+  record,
+  profile,
+}: {
+  record: StateRecord;
+  profile: ReturnType<typeof getProfile>;
+}) {
+  const fields = record.fields;
+  const decisionDays = fields.decision_days.value;
+  const sourceDate = record.record_info.source_date;
+  const bondFormula = record.bondFormula?.(
+    formatAmount(fields.bond_min_usd.value),
+    formatAmount(fields.bond_max_usd.value),
+  );
+  const bondNote = bondFormula || fields.bond_min_usd.note || fields.bond_structure.note;
+
+  return (
+    <>
+      <dl className="detail-grid">
+        <div>
+          <dt>Surety bond</dt>
+          <dd>
+            <strong>{profile.bond}</strong>
+            {bondNote && <span>{bondNote}</span>}
+          </dd>
+        </div>
+        <div>
+          <dt>Minimum net worth</dt>
+          <dd>
+            <strong>{formatAmount(fields.net_worth_min_usd.value)}</strong>
+            {fields.net_worth_min_usd.note && <span>{fields.net_worth_min_usd.note}</span>}
+          </dd>
+        </div>
+        <div>
+          <dt>Application fee</dt>
+          <dd>
+            <strong>{profile.fees}</strong>
+            {fields.application_fee_usd.note && <span>{fields.application_fee_usd.note}</span>}
+          </dd>
+        </div>
+        <div>
+          <dt>Renewal fee</dt>
+          <dd>
+            <strong>{formatAmount(fields.renewal_fee_usd.value)}</strong>
+            {fields.renewal_fee_usd.note && <span>{fields.renewal_fee_usd.note}</span>}
+          </dd>
+        </div>
+        <div>
+          <dt>Decision timeline</dt>
+          <dd>
+            <strong>{decisionDays == null ? "Unavailable" : `${decisionDays} days after the application is complete`}</strong>
+            {fields.decision_days.note && <span>{fields.decision_days.note}</span>}
+          </dd>
+        </div>
+        <div>
+          <dt>Last updated</dt>
+          <dd>
+            <strong><time dateTime={sourceDate}>{sourceDateFormat.format(new Date(sourceDate))}</time></strong>
+            <span>Date of the checked-in source snapshot</span>
+          </dd>
+        </div>
+      </dl>
+      <ul className="state-detail-sources" aria-label="Sources">
+        {record.sources.map(({ label, href }) => (
+          <li key={href}><a href={href}>{label}</a></li>
+        ))}
+      </ul>
+    </>
+  );
+}
 
 const classifierResults = {
   "license-likely": "License likely",
@@ -176,9 +236,9 @@ const suggestedQuestions = [
 ] as const;
 
 export default function App() {
-  const texas = usaMap.locations.find((state) => state.id === "tx");
+  const defaultState = mapLocations.find((state) => state.id === "tx");
   const [selectedExampleId, setSelectedExampleId] = useState("remittance");
-  const [description, setDescription] = useState(examples[0].description);
+  const [description, setDescription] = useState<string>(examples[0].description);
   const [assessment, setAssessment] = useState<Assessment>({
     result: examples[0].result,
     confidence: examples[0].confidence,
@@ -188,8 +248,6 @@ export default function App() {
   });
   const [isAssessing, setIsAssessing] = useState(false);
   const [selectedId, setSelectedId] = useState("tx");
-  const [businessType, setBusinessType] =
-    useState<BusinessType>("Remittance");
   const [query, setQuery] = useState("");
   const [chatOpen, setChatOpen] = useState(false);
   const [chatQuery, setChatQuery] = useState("");
@@ -205,12 +263,13 @@ export default function App() {
 
   const selectedState = useMemo(
     () =>
-      usaMap.locations.find((state) => state.id === selectedId) ??
-      texas ??
-      usaMap.locations[0],
-    [selectedId, texas],
+      mapLocations.find((state) => state.id === selectedId) ??
+      defaultState ??
+      mapLocations[0],
+    [selectedId, defaultState],
   );
-  const selectedProfile = getProfile(selectedState.id, businessType);
+  const selectedProfile = getProfile(selectedState.id);
+  const selectedRecord = stateRecords.get(selectedState.id);
   const selectedExample =
     examples.find((example) => example.id === selectedExampleId) ?? examples[0];
   const selectedSuggestion = suggestedQuestions.find(
@@ -307,16 +366,18 @@ export default function App() {
       return;
     }
 
-    const matchedState = usaMap.locations.find((state) =>
+    const matchedState = mapLocations.find((state) =>
       chatQuery.toLowerCase().includes(state.name.toLowerCase()),
     );
 
     if (matchedState) {
-      const profile = getProfile(matchedState.id, businessType);
+      const profile = getProfile(matchedState.id);
       setSelectedId(matchedState.id);
       setChatFollowUp({
         question: trimmedQuery,
-        answer: `${matchedState.name}: ${profile.bond}. ${profile.fees}. ${profile.note}`,
+        answer: stateRecords.has(matchedState.id)
+          ? `${matchedState.name}. Surety bond: ${profile.bond}. Application fee: ${profile.fees}.`
+          : `No state requirements are available for ${matchedState.name} in this dataset.`,
       });
     } else {
       setChatFollowUp({
@@ -501,23 +562,7 @@ export default function App() {
               <p className="kicker">State requirements</p>
               <h2>Licensing strictness by state</h2>
             </div>
-            <span className="map-count">Sample data</span>
-          </div>
-
-          <div className="map-controls">
-            <label htmlFor="business-type">Business type</label>
-            <select
-              id="business-type"
-              value={businessType}
-              onChange={(event) =>
-                setBusinessType(event.target.value as BusinessType)
-              }
-            >
-              <option>P2P payments</option>
-              <option>Remittance</option>
-              <option>Crypto</option>
-              <option>Payroll</option>
-            </select>
+            <span className="map-count">{stateRecords.size} states with data</span>
           </div>
 
           <div className="map-wrap">
@@ -525,10 +570,13 @@ export default function App() {
               className="usa-map"
               viewBox={usaMap.viewBox}
               role="group"
-              aria-label="Interactive map of state money transmission risk"
+              aria-label="Interactive map of maximum surety bonds by state"
             >
-              {usaMap.locations.map((state) => {
-                const profile = getProfile(state.id, businessType);
+              {mapLocations.map((state) => {
+                const profile = getProfile(state.id);
+                const summary = stateRecords.has(state.id)
+                  ? `${state.name} · Surety bond: ${profile.bond} · Application fee: ${profile.fees}`
+                  : `${state.name} · No data`;
                 return (
                   <path
                     className={`state-shape ${profile.risk} ${
@@ -538,7 +586,8 @@ export default function App() {
                     d={state.path}
                     role="button"
                     tabIndex={0}
-                    aria-label={`${state.name}: ${profile.risk} requirements`}
+                    aria-label={summary}
+                    aria-pressed={selectedId === state.id}
                     onClick={() => selectState(state.id, state.name)}
                     onKeyDown={(event) => {
                       if (event.key === "Enter" || event.key === " ") {
@@ -547,19 +596,17 @@ export default function App() {
                       }
                     }}
                   >
-                    <title>
-                      {state.name}: {profile.risk}
-                    </title>
+                    <title>{summary}</title>
                   </path>
                 );
               })}
             </svg>
           </div>
           <p className="map-note">
-            Strictness weights change with business type.
+            Colors show the maximum surety bond in the available data.
           </p>
 
-          <div className="legend" aria-label="Requirement strictness">
+          <div className="legend" aria-label="Maximum surety bond legend">
             {legend.map((item) => (
               <div className="legend-item" key={item.name}>
                 <span className={`legend-dot ${item.className}`} />
@@ -568,27 +615,24 @@ export default function App() {
             ))}
           </div>
 
-          <div className="state-detail">
+          <section className="state-detail" aria-labelledby="state-detail-title">
             <div className="state-detail-heading">
               <div>
                 <p className="scenario-label">Selected state</p>
-                <h3>{selectedState.name}</h3>
+                <h3 id="state-detail-title">{selectedState.name}</h3>
               </div>
               <span className={`level-pill ${selectedProfile.risk}`}>
-                {selectedProfile.risk}
+                {selectedProfile.risk === "no-data" ? "No data" : selectedProfile.risk}
               </span>
             </div>
-            <div className="detail-grid">
-              <div>
-                <span>Surety bond</span>
-                <strong>{selectedProfile.bond}</strong>
-              </div>
-              <div>
-                <span>Fees</span>
-                <strong>{selectedProfile.fees}</strong>
-              </div>
-            </div>
-          </div>
+            {selectedRecord ? (
+              <StateRequirements record={selectedRecord} profile={selectedProfile} />
+            ) : (
+              <p className="state-detail-empty">
+                No licensing data is available for {selectedState.name} in this dataset.
+              </p>
+            )}
+          </section>
         </div>
       </section>
 

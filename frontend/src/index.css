@@ -674,44 +674,6 @@ h1 .headline-accent {
   text-transform: uppercase;
 }
 
-.map-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 12px;
-  padding: 10px 12px;
-  border: 1px solid rgb(23 37 63 / 10%);
-  border-radius: 12px;
-  background: rgb(244 240 231 / 62%);
-}
-
-.map-controls label {
-  color: #526075;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.map-controls select {
-  min-width: 150px;
-  cursor: pointer;
-  border: 1px solid rgb(23 37 63 / 14%);
-  border-radius: 9px;
-  padding: 8px 30px 8px 10px;
-  outline: none;
-  background: #fffdf8;
-  color: #17253f;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.map-controls select:focus-visible {
-  border-color: #c7563e;
-  box-shadow: 0 0 0 3px rgb(199 86 62 / 12%);
-}
-
 .map-wrap {
   position: relative;
   padding: 6px 0 2px;
@@ -791,6 +753,12 @@ h1 .headline-accent {
   background: #4f9187;
 }
 
+.state-shape.no-data,
+.legend-dot.no-data {
+  fill: #a5aab2;
+  background: #a5aab2;
+}
+
 .state-shape.selected {
   filter: brightness(1.08) drop-shadow(0 5px 6px rgb(23 37 63 / 42%));
   stroke: #17253f;
@@ -851,10 +819,15 @@ h1 .headline-accent {
   background: #307e76;
 }
 
+.level-pill.no-data {
+  background: #616975;
+}
+
 .detail-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
+  margin: 0;
 }
 
 .detail-grid > div {
@@ -863,14 +836,18 @@ h1 .headline-accent {
   background: rgb(255 253 248 / 78%);
 }
 
-.detail-grid span,
+.detail-grid dd {
+  margin: 0;
+}
+
+.detail-grid dd span,
 .detail-grid strong {
   display: block;
 }
 
-.detail-grid span {
+.detail-grid dt {
   margin-bottom: 5px;
-  color: #8991a0;
+  color: #566478;
   font-size: 9px;
   font-weight: 750;
   letter-spacing: 0.08em;
@@ -881,6 +858,37 @@ h1 .headline-accent {
   color: #344258;
   font-size: 11px;
   line-height: 1.4;
+}
+
+.detail-grid dd span,
+.state-detail-empty,
+.state-detail-sources {
+  color: #48566b;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.detail-grid dd span {
+  margin-top: 4px;
+}
+
+.state-detail-empty {
+  margin: 0;
+}
+
+.state-detail-sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.state-detail-sources a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .chat-backdrop {
@@ -1200,6 +1208,10 @@ footer {
 }
 
 @media (max-width: 680px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
   .page-shell {
     padding-inline: 20px;
   }
