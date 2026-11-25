@@ -1,0 +1,37 @@
+id,question,state,expected_section
+Q01,Do I need a license to operate a money transmission business?,Texas,Sec. 152.101.
+Q02,What license is required to operate a currency exchange business?,Texas,Sec. 152.102.
+Q03,How do I apply for a money services license?,Texas,Sec. 152.104.
+Q04,How does the regulator decide whether to issue a license?,Texas,Sec. 152.106.
+Q05,Can a money services licensee get a refund of fees paid?,Texas,Sec. 152.109.
+Q06,Do I need written approval before acquiring control of a licensed money services company?,Texas,Sec. 152.151.
+Q07,When must a money transmitter submit its quarterly report of condition?,Texas,Sec. 152.201.
+Q08,How long must a money services licensee retain compliance records?,Texas,Sec. 152.207.
+Q09,What tangible net worth must a money transmitter maintain?,Texas,Sec. 152.351.
+Q10,What surety bond security must a money transmitter maintain?,Texas,Sec. 152.352.
+Q11,What receipt requirements apply to money transmission transactions?,Texas,Sec. 152.303.
+Q12,What ongoing permissible investment requirements apply to money transmitters?,Texas,Sec. 152.355.
+Q13,How is a self-hosted wallet defined?,Pennsylvania,Section 1.
+Q14,Does transmitting virtual currency for a fee on behalf of an individual require a license?,Pennsylvania,Section 2.
+Q15,Are agents of a licensed money transmitter exempt from obtaining their own license?,Pennsylvania,Section 3.
+Q16,What qualifications must an applicant meet to obtain a license?,Pennsylvania,Section 4.
+Q17,Whose names must a corporate applicant include in its license application?,Pennsylvania,Section 5.
+Q18,What is the required security bond for an original license application?,Pennsylvania,Section 6.
+Q19,Can an applicant request a hearing after a license application is rejected?,Pennsylvania,Section 7.
+Q20,What is the maximum term of a money transmission license?,Pennsylvania,Section 8.
+Q21,When must a license renewal application be filed?,Pennsylvania,Section 9.
+Q22,Can the department subpoena witnesses during administrative hearings?,Pennsylvania,Section 10.
+Q23,When may the department suspend or revoke an existing license?,Pennsylvania,Section 10.1.
+Q24,Who is liable for payment of money covered by issued transmittal instruments?,Pennsylvania,Section 11.
+Q25,How does the banking law define a person?,New York,§ 640
+Q26,Is a license required to receive money for transmission?,New York,§ 641
+Q27,What investigation does the superintendent conduct after receiving a license application?,New York,§ 642
+Q28,What bond or securities must applicants provide to obtain and retain a license?,New York,§ 643
+Q29,Can a claimant assign a claim against a licensee to the superintendent?,New York,§ 645
+Q30,What powers does the superintendent have to conduct investigations and hearings?,New York,§ 646
+Q31,Can a licensed money transmitter operate through agents?,New York,§ 648
+Q32,What penalties apply to violations of the money transmission article?,New York,§ 650
+Q33,What permissible investments must a licensee maintain?,New York,§ 651
+Q34,What remittance obligations apply to agents selling New York instruments?,New York,§ 651-a
+Q35,What books and records must agents maintain?,New York,§ 651-b
+Q36,Is prior approval required for a change in control of a licensee?,New York,§ 652-a

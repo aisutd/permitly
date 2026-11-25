@@ -1,0 +1,277 @@
+openapi: 3.0.3
+info:
+  title: Permitly API
+  version: 0.1.0
+  description: >
+    Money transmitter license (MTL) guide. Risk classifier, state extraction data,
+    and RAG question answering with structured citations.
+    Wording rule: results say "likely" or "may require", never "you need".
+servers:
+  - url: http://localhost:8000
+    description: Local
+paths:
+  /health:
+    get:
+      summary: Health check
+      operationId: health
+      responses:
+        "200":
+          description: Service is up
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                properties:
+                  status: { type: string, example: ok }
+  /classify:
+    post:
+      summary: Classify a business description by MTL risk
+      operationId: classify
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ClassifyRequest" }
+            examples:
+              remittance:
+                value:
+                  description: "App that lets gig workers send money to family abroad and holds funds until the recipient picks them up."
+      responses:
+        "200":
+          description: Classification result
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ClassifyResponse" }
+              examples:
+                high:
+                  value:
+                    risk_level: high
+                    probability: 0.91
+                    reasons:
+                      - "Accepts money from one party to transfer to another"
+                      - "Holds customer funds before delivery"
+                      - "Cross-border transfers"
+        "422":
+          description: Invalid input (empty or too long)
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+              examples:
+                empty:
+                  value:
+                    error: { code: invalid_input, message: "description must not be empty", request_id: "req_123" }
+        "429": { $ref: "#/components/responses/RateLimited" }
+        "500": { $ref: "#/components/responses/ServerError" }
+  /states:
+    get:
+      summary: List extraction data for all states
+      operationId: listStates
+      responses:
+        "200":
+          description: One entry per state with data. States with no data are omitted.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/State" }
+        "429": { $ref: "#/components/responses/RateLimited" }
+        "500": { $ref: "#/components/responses/ServerError" }
+  /states/{code}:
+    get:
+      summary: Get extraction data for one state
+      operationId: getState
+      parameters:
+        - name: code
+          in: path
+          required: true
+          description: Two-letter USPS state code (case-insensitive)
+          schema: { type: string, pattern: "^[A-Za-z]{2}$", example: TX }
+      responses:
+        "200":
+          description: State data. Missing fields are null, never errors.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/State" }
+              examples:
+                formulaBond:
+                  value:
+                    code: TX
+                    name: Texas
+                    bond: { min: null, max: null, formula_text: "Formula-based; see source", }
+                    net_worth: null
+                    fees: null
+                    timeline: null
+                    source_url: "https://example.gov/statute"
+                    last_updated: "2026-11-01"
+        "404":
+          description: Unknown state code
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+              examples:
+                notFound:
+                  value:
+                    error: { code: state_not_found, message: "No state with code ZZ", request_id: "req_123" }
+        "429": { $ref: "#/components/responses/RateLimited" }
+        "500": { $ref: "#/components/responses/ServerError" }
+  /ask:
+    post:
+      summary: Ask a question answered from retrieved statute text (RAG)
+      operationId: ask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/AskRequest" }
+            examples:
+              withState:
+                value: { question: "What is the minimum surety bond?", state: TX }
+      responses:
+        "200":
+          description: >
+            Answer with citations, or an explicit "not found in sources" response
+            (found=false, answer=null, citations empty) when nothing relevant is retrieved.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AskResponse" }
+              examples:
+                answered:
+                  value:
+                    found: true
+                    answer: "Texas may require a surety bond; see the cited section."
+                    citations:
+                      - state: TX
+                        section: "Sec. 151.307"
+                        source_url: "https://example.gov/statute"
+                        chunk_id: "tx-151-307-0003"
+                        retrieval_date: "2026-11-01"
+                notFoundInSources:
+                  value:
+                    found: false
+                    answer: null
+                    citations: []
+        "422":
+          description: Invalid input (empty question, unknown state code)
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+        "429": { $ref: "#/components/responses/RateLimited" }
+        "502":
+          description: LLM timed out or failed after one retry
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+              examples:
+                llm:
+                  value:
+                    error: { code: llm_unavailable, message: "The language model did not respond. Please retry.", request_id: "req_123" }
+        "500": { $ref: "#/components/responses/ServerError" }
+components:
+  responses:
+    RateLimited:
+      description: Per-IP rate limit exceeded
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+          examples:
+            limited:
+              value:
+                error: { code: rate_limited, message: "Too many requests", request_id: "req_123" }
+    ServerError:
+      description: Unexpected error. Clean JSON, never a stack trace.
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+          examples:
+            server:
+              value:
+                error: { code: internal_error, message: "Something went wrong", request_id: "req_123" }
+  schemas:
+    ClassifyRequest:
+      type: object
+      required: [description]
+      properties:
+        description: { type: string, minLength: 1, maxLength: 2000 }
+    ClassifyResponse:
+      type: object
+      required: [risk_level, probability, reasons]
+      properties:
+        risk_level: { type: string, enum: [low, medium, high] }
+        probability:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Model probability for the predicted risk level
+        reasons:
+          type: array
+          description: Top reasons, most important first
+          items: { type: string }
+    State:
+      type: object
+      required: [code, name, bond, net_worth, fees, timeline, source_url, last_updated]
+      properties:
+        code: { type: string, example: NY }
+        name: { type: string, example: New York }
+        bond:
+          type: object
+          nullable: true
+          properties:
+            min: { type: number, nullable: true, description: USD }
+            max: { type: number, nullable: true, description: USD }
+            formula_text: { type: string, nullable: true, description: Readable text when the bond is formula-based }
+        net_worth:
+          type: object
+          nullable: true
+          properties:
+            min: { type: number, nullable: true, description: USD }
+            text: { type: string, nullable: true }
+        fees:
+          type: object
+          nullable: true
+          properties:
+            application: { type: number, nullable: true, description: USD }
+            annual: { type: number, nullable: true, description: USD }
+            text: { type: string, nullable: true }
+        timeline: { type: string, nullable: true, description: Typical processing time as text }
+        source_url: { type: string, format: uri, nullable: true }
+        last_updated: { type: string, format: date, nullable: true }
+    AskRequest:
+      type: object
+      required: [question]
+      properties:
+        question: { type: string, minLength: 1, maxLength: 1000 }
+        state:
+          type: string
+          nullable: true
+          pattern: "^[A-Za-z]{2}$"
+          description: Optional two-letter state code. When given, retrieval is filtered to that state.
+    AskResponse:
+      type: object
+      required: [found, answer, citations]
+      properties:
+        found: { type: boolean, description: false means "not found in sources" }
+        answer: { type: string, nullable: true }
+        citations:
+          type: array
+          items: { $ref: "#/components/schemas/Citation" }
+    Citation:
+      type: object
+      required: [state, section, source_url, chunk_id, retrieval_date]
+      properties:
+        state: { type: string }
+        section: { type: string }
+        source_url: { type: string, format: uri }
+        chunk_id: { type: string }
+        retrieval_date: { type: string, format: date }
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message, request_id]
+          properties:
+            code: { type: string }
+            message: { type: string }
+            request_id: { type: string }
