@@ -34,3 +34,18 @@ Review date: 2026-11-25. Input: state_answer_keys JSON export from origin/arjun_
 
 ## Status
 Draft review; corrections not applied to backend branch or database. Pending checks listed above. The seed script ignores existing rows on conflict, so updating JSON alone does not update already-seeded records. Coordinate correction and database migration with backend owner. No claim of complete legal validation.
+
+## Corrections Implemented
+
+- Florida: Added the authorized vendor licensing exemption.
+- Illinois: Clarified the minimum renewal fee.
+- Washington: Clarified the discretionary maximum bond.
+- Texas and California: Retained existing values.
+
+All seven JSON files passed syntax validation.
+
+## Remaining Limitations
+
+- Remaining statutory exemptions require further verification.
+- Corrected records must be integrated into the backend.
+- Existing database records require a separate update.
